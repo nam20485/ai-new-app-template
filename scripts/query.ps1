@@ -165,7 +165,7 @@ function Send-ReplyToReviewComment {
         [Parameter(Mandatory)][string]$Owner,
         [Parameter(Mandatory)][string]$Repo,
         [Parameter(Mandatory)][int]$PR,
-    [Parameter(Mandatory)][long]$CommentId,
+        [Parameter(Mandatory)][string]$CommentId,
         [Parameter(Mandatory)][string]$Body
     )
     $ghArgs = @(
