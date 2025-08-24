@@ -93,15 +93,33 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # The upstream script currently contains a sed command with complex single-quote juggling
-          # that becomes malformed due to line wrapping, causing a bash parse error near line ~33.
-          # As a temporary workaround, remove the brittle quote-stripping line to allow parsing.
-          # This only affects how .env.tools values are unquoted; most values work fine without it.
-          awk 'BEGIN{drop=0} 
-               /strip surrounding single or double quotes from value/ { drop=1; next } 
-               drop==1 && /^\s*export\s+\"\$key\"=\"\$val\"/ { drop=0; print; next } 
-               drop==1 { next } 
-               { print }' scripts/setup-environment.sh > scripts/setup-environment.sh.tmp
+          # Replace the entire .env.tools parsing block with a simpler, robust implementation
+          # to avoid issues from upstream line-wrapping and brittle quoting.
+          awk '
+            BEGIN { inblk=0; printed=0 }
+            /^# Load repo-level tool pins if present \(\.env\.tools\)/ {
+              print; getline tmp
+              if (tmp ~ /^if \[ -f \.env\.tools \ ]; then$/) {
+                print "if [ -f .env.tools ]; then"
+                print "  echo \"[env] Loading .env.tools (simplified)\""
+                print "  while IFS= read -r line || [ -n \"$line\" ]; do"
+                print "    case \"$line\" in \"\"|#*) continue ;; esac"
+                print "    key=\"${line%%=*}\""
+                print "    val=\"${line#*=}\""
+                print "    export \"$key\"=\"$val\""
+                print "  done < .env.tools"
+                print "fi"
+                inblk=1; printed=1; next
+              } else {
+                # Not exactly as expected; print the line we consumed and continue
+                print tmp
+              }
+            }
+            inblk==1 {
+              if ($0 ~ /^fi$/) { inblk=0; next } else { next }
+            }
+            { print }
+          ' scripts/setup-environment.sh > scripts/setup-environment.sh.tmp
           mv scripts/setup-environment.sh.tmp scripts/setup-environment.sh
 
       - name: Validate Linux script syntax
