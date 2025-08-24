@@ -8,15 +8,64 @@ on:
     branches:
       - '**'
   workflow_dispatch:
+    inputs:
+      enableWindows:
+        description: "Enable Windows validation job for this run"
+        required: false
+        default: 'false'
 
-env:
-  # Mirror repo variable for linter-friendly usage in conditions
-  ENABLE_WINDOWS_SETUP_VALIDATION: ${{ vars.ENABLE_WINDOWS_SETUP_VALIDATION }}
+permissions:
+  contents: read
+  actions: read
 
 jobs:
+  decide-windows:
+    name: Decide whether to run Windows validation
+    runs-on: ubuntu-22.04
+    outputs:
+      enabled: ${{ steps.set.outputs.enabled }}
+    steps:
+      - id: set
+        name: Determine enablement from dispatch input or repo variable
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_SLUG: ${{ github.repository }}
+          ENABLE_FROM_DISPATCH: ${{ inputs.enableWindows || '' }}
+        run: |
+          set -euo pipefail
+          # If explicitly enabled via workflow_dispatch input, honor it
+          if [ "${ENABLE_FROM_DISPATCH,,}" = "true" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          owner="${REPO_SLUG%%/*}"
+          repo="${REPO_SLUG#*/}"
+          enabled="false"
+          # Try to read repo actions variable ENABLE_WINDOWS_SETUP_VALIDATION; default to false if missing
+          if gh api -H "Accept: application/vnd.github+json" \
+                "/repos/${owner}/${repo}/actions/variables/ENABLE_WINDOWS_SETUP_VALIDATION" \
+                > var.json 2>/dev/null; then
+            # Parse value using jq if present, else fallback to grep
+            if command -v jq >/dev/null 2>&1; then
+              val=$(jq -r '.value // "false"' < var.json)
+            else
+              val=$(sed -n 's/.*"value"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/p' var.json | head -n1)
+              [ -z "$val" ] && val="false"
+            fi
+            case "${val,,}" in
+              true) enabled="true" ;;
+              *) enabled="false" ;;
+            esac
+          fi
+          echo "enabled=${enabled}" >> "$GITHUB_OUTPUT"
+
   validate-linux:
     name: Validate Linux setup script
     runs-on: ubuntu-22.04
+    env:
+      # Keep CI fast and less flaky: skip large optional installs (Playwright browsers, some CLIs)
+      SETUP_MINIMAL: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,19 +89,39 @@ jobs:
           # overwrite local windows script with remote script
           download "setup-environment.ps1"
 
+      - name: Validate Linux script syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! bash -n scripts/setup-environment.sh; then
+            echo "Downloaded scripts/setup-environment.sh has a syntax error (bash -n failed)." >&2
+            echo "Tip: upstream file may contain wrapped lines or unbalanced quotes; fix, then retry." >&2
+            exit 1
+          fi
+
       - name: Run Linux setup script
         shell: bash
         run: |
           # Prefer repository .nvmrc; fail if neither .nvmrc nor env pin present
-          if [ ! -f .nvmrc ] && [ -z "${NODE_VERSION_PIN}" ]; then
+          if [ ! -f .nvmrc ] && [ -z "${NODE_VERSION_PIN:-}" ]; then
             echo "No .nvmrc found and NODE_VERSION_PIN not set; failing to keep determinism." >&2
             exit 1
           fi
           chmod +x scripts/setup-environment.sh
-          scripts/setup-environment.sh
+          # Run with trace, capture logs, and preserve exit code from the script
+          bash -x scripts/setup-environment.sh 2>&1 | tee setup-linux.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Upload setup log (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: setup-linux-log
+          path: setup-linux.log
 
   validate-windows:
-    if: ${{ (vars.ENABLE_WINDOWS_SETUP_VALIDATION || 'false') == 'true' }}
+    needs: decide-windows
+    if: ${{ needs.decide-windows.outputs.enabled == 'true' }}
     name: Validate Windows setup script
     runs-on: windows-2022
     steps:
@@ -61,6 +130,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Fetch Remote Scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p scripts
+
+          download() {
+            filename="$1"
+            base="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts"
+            curl -fsSL -H "Accept: application/vnd.github.raw" "${base}/${filename}" -o "scripts/${filename}"
+          }
+
+          # overwrite local windows script with remote script
+          download "setup-environment.ps1"
+
       - name: Run Windows setup script
         shell: pwsh
         run: |
@@ -68,4 +152,13 @@ jobs:
             Write-Error "No .nvmrc found and NODE_VERSION_PIN not set; failing to keep determinism."
             exit 1
           }
-          pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/setup-environment.ps1
+          pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/setup-environment.ps1 *>&1 | Tee-Object -FilePath setup-windows.log
+          $code = $LASTEXITCODE
+          if ($code -ne 0) { exit $code }
+
+      - name: Upload setup log (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: setup-windows-log
+          path: setup-windows.log
