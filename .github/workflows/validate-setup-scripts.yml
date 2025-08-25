@@ -80,47 +80,17 @@ jobs:
 
           download() {
             filename="$1"
-            base="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts"
-            curl -fsSL -H "Accept: application/vnd.github.raw" "${base}/${filename}" -o "scripts/${filename}"
+            url="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts/${filename}"
+            if curl -fsSL "$url" -o "scripts/${filename}"; then
+              echo "Fetched $filename from main"
+              return 0
+            fi
+            echo "Failed to fetch $filename from main" >&2
+            exit 1
           }
 
           # overwrite local linux script with remote script
           download "setup-environment.sh"
-          # overwrite local windows script with remote script
-          download "setup-environment.ps1"
-
-      - name: Sanitize Linux script (temporary workaround)
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Replace the entire .env.tools parsing block with a simpler, robust implementation
-          # to avoid issues from upstream line-wrapping and brittle quoting.
-          awk '
-            BEGIN { inblk=0; printed=0 }
-            /^# Load repo-level tool pins if present \(\.env\.tools\)/ {
-              print; getline tmp
-              if (tmp ~ /^if \[ -f \.env\.tools \ ]; then$/) {
-                print "if [ -f .env.tools ]; then"
-                print "  echo \"[env] Loading .env.tools (simplified)\""
-                print "  while IFS= read -r line || [ -n \"$line\" ]; do"
-                print "    case \"$line\" in \"\"|#*) continue ;; esac"
-                print "    key=\"${line%%=*}\""
-                print "    val=\"${line#*=}\""
-                print "    export \"$key\"=\"$val\""
-                print "  done < .env.tools"
-                print "fi"
-                inblk=1; printed=1; next
-              } else {
-                # Not exactly as expected; print the line we consumed and continue
-                print tmp
-              }
-            }
-            inblk==1 {
-              if ($0 ~ /^fi$/) { inblk=0; next } else { next }
-            }
-            { print }
-          ' scripts/setup-environment.sh > scripts/setup-environment.sh.tmp
-          mv scripts/setup-environment.sh.tmp scripts/setup-environment.sh
 
       - name: Validate Linux script syntax
         shell: bash
@@ -135,11 +105,6 @@ jobs:
       - name: Run Linux setup script
         shell: bash
         run: |
-          # Prefer repository .nvmrc; fail if neither .nvmrc nor env pin present
-          if [ ! -f .nvmrc ] && [ -z "${NODE_VERSION_PIN:-}" ]; then
-            echo "No .nvmrc found and NODE_VERSION_PIN not set; failing to keep determinism." >&2
-            exit 1
-          fi
           chmod +x scripts/setup-environment.sh
           # Run with trace, capture logs, and preserve exit code from the script
           bash -x scripts/setup-environment.sh 2>&1 | tee setup-linux.log
@@ -171,8 +136,13 @@ jobs:
 
           download() {
             filename="$1"
-            base="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts"
-            curl -fsSL -H "Accept: application/vnd.github.raw" "${base}/${filename}" -o "scripts/${filename}"
+            url="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts/${filename}"
+            if curl -fsSL "$url" -o "scripts/${filename}"; then
+              echo "Fetched $filename from main"
+              return 0
+            fi
+            echo "Failed to fetch $filename from main" >&2
+            exit 1
           }
 
           # overwrite local windows script with remote script
@@ -181,10 +151,6 @@ jobs:
       - name: Run Windows setup script
         shell: pwsh
         run: |
-          if (!(Test-Path ".nvmrc") -and [string]::IsNullOrWhiteSpace($env:NODE_VERSION_PIN)) {
-            Write-Error "No .nvmrc found and NODE_VERSION_PIN not set; failing to keep determinism."
-            exit 1
-          }
           pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/setup-environment.ps1 *>&1 | Tee-Object -FilePath setup-windows.log
           $code = $LASTEXITCODE
           if ($code -ne 0) { exit $code }
