@@ -12,7 +12,7 @@ on:
       enableWindows:
         description: "Enable Windows validation job for this run"
         required: false
-        default: 'false'
+        default: 'true'
 
 permissions:
   contents: read
@@ -33,15 +33,25 @@ jobs:
           ENABLE_FROM_DISPATCH: ${{ inputs.enableWindows || '' }}
         run: |
           set -euo pipefail
-          # If explicitly enabled via workflow_dispatch input, honor it
-          if [ "${ENABLE_FROM_DISPATCH,,}" = "true" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-            exit 0
+          # Default: enabled unless explicitly disabled
+          enabled="true"
+
+          # If workflow_dispatch input provided, honor true/false explicitly
+          if [ -n "${ENABLE_FROM_DISPATCH:-}" ]; then
+            case "${ENABLE_FROM_DISPATCH,,}" in
+              true)
+                echo "enabled=true" >> "$GITHUB_OUTPUT"
+                exit 0
+                ;;
+              false)
+                echo "enabled=false" >> "$GITHUB_OUTPUT"
+                exit 0
+                ;;
+            esac
           fi
 
           owner="${REPO_SLUG%%/*}"
           repo="${REPO_SLUG#*/}"
-          enabled="false"
           # Try to read repo actions variable ENABLE_WINDOWS_SETUP_VALIDATION; default to false if missing
           if gh api -H "Accept: application/vnd.github+json" \
                 "/repos/${owner}/${repo}/actions/variables/ENABLE_WINDOWS_SETUP_VALIDATION" \
@@ -55,7 +65,8 @@ jobs:
             fi
             case "${val,,}" in
               true) enabled="true" ;;
-              *) enabled="false" ;;
+              false) enabled="false" ;;
+              *) : ;; # keep default enabled
             esac
           fi
           echo "enabled=${enabled}" >> "$GITHUB_OUTPUT"
