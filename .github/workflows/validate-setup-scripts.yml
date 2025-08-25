@@ -80,12 +80,14 @@ jobs:
 
           download() {
             filename="$1"
-            url="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts/${filename}"
+            # Pinned to a known-good commit for determinism
+            sha="c20f87d445bd84ab33e9bc73005fc688fe9f9c8d"
+            url="https://raw.githubusercontent.com/nam20485/agent-instructions/${sha}/scripts/${filename}"
             if curl -fsSL "$url" -o "scripts/${filename}"; then
-              echo "Fetched $filename from main"
+              echo "Fetched $filename at $sha"
               return 0
             fi
-            echo "Failed to fetch $filename from main" >&2
+            echo "Failed to fetch $filename at $sha" >&2
             exit 1
           }
 
@@ -122,6 +124,9 @@ jobs:
     if: ${{ needs.decide-windows.outputs.enabled == 'true' }}
     name: Validate Windows setup script
     runs-on: windows-2022
+    env:
+      SETUP_MINIMAL: '1'
+      NODE_VERSION_PIN: '22.11.0'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -136,22 +141,49 @@ jobs:
 
           download() {
             filename="$1"
-            url="https://raw.githubusercontent.com/nam20485/agent-instructions/main/scripts/${filename}"
+            # Pinned to a known-good commit for determinism
+            sha="c20f87d445bd84ab33e9bc73005fc688fe9f9c8d"
+            url="https://raw.githubusercontent.com/nam20485/agent-instructions/${sha}/scripts/${filename}"
             if curl -fsSL "$url" -o "scripts/${filename}"; then
-              echo "Fetched $filename from main"
+              echo "Fetched $filename at $sha"
               return 0
             fi
-            echo "Failed to fetch $filename from main" >&2
+            echo "Failed to fetch $filename at $sha" >&2
             exit 1
           }
 
-          # overwrite local windows script with remote script
           download "setup-environment.ps1"
 
       - name: Run Windows setup script
         shell: pwsh
         run: |
-          pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/setup-environment.ps1 *>&1 | Tee-Object -FilePath setup-windows.log
+          # Preconfigure NVM environment so the current session can find nvm after install
+          $env:NVM_HOME = "C:\ProgramData\nvm"
+          $env:NVM_SYMLINK = "C:\Program Files\nodejs"
+          if (!(Test-Path $env:NVM_SYMLINK)) { New-Item -ItemType Directory -Force -Path $env:NVM_SYMLINK | Out-Null }
+          if (-not (($env:Path -split ';') -contains $env:NVM_HOME)) { $env:Path = "$env:NVM_HOME;$env:Path" }
+
+          # Pre-install nvm in this step to avoid PATH/env propagation issues inside the setup script
+          choco install -y nvm.install nvm | Write-Host
+          $env:ChocolateyInstall = "C:\ProgramData\chocolatey"
+          if (Get-Command refreshenv -ErrorAction SilentlyContinue) { refreshenv } else { $env:Path = "C:\ProgramData\chocolatey\bin;$env:Path" }
+          # Persist NVM variables at machine scope as some scripts validate on that scope
+          [Environment]::SetEnvironmentVariable('NVM_HOME', $env:NVM_HOME, 'Machine')
+          [Environment]::SetEnvironmentVariable('NVM_SYMLINK', $env:NVM_SYMLINK, 'Machine')
+
+          # Ensure nvm is invokable even if PATH isn't refreshed
+          $nvmExeCandidates = @(
+            "$env:NVM_HOME\nvm.exe",
+            "C:\\ProgramData\\chocolatey\\bin\\nvm.exe"
+          )
+          $nvmExe = $null
+          foreach ($cand in $nvmExeCandidates) { if (Test-Path $cand) { $nvmExe = $cand; break } }
+          if (-not $nvmExe) { Write-Error "nvm.exe not found at expected locations"; exit 1 }
+          & $nvmExe version | Write-Host
+          # Add directory containing nvm.exe to PATH for the remainder of this step
+          $env:Path = (Split-Path -Parent $nvmExe) + ';' + $env:Path
+
+          & "scripts/setup-environment.ps1" *>&1 | Tee-Object -FilePath setup-windows.log
           $code = $LASTEXITCODE
           if ($code -ne 0) { exit $code }
 
