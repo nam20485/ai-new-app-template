@@ -80,9 +80,8 @@ jobs:
 
           download() {
             filename="$1"
-            # For Windows, temporarily source from main while validating upstream NVM fixes;
-            # we'll pin to the resulting commit SHA after a successful run.
-            sha="main"
+            # Pinned to a known-good commit for determinism
+            sha="c20f87d445bd84ab33e9bc73005fc688fe9f9c8d"
             url="https://raw.githubusercontent.com/nam20485/agent-instructions/${sha}/scripts/${filename}"
             if curl -fsSL "$url" -o "scripts/${filename}"; then
               echo "Fetched $filename at $sha"
