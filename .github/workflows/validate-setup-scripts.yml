@@ -166,19 +166,48 @@ jobs:
           # Pre-install nvm in this step to avoid PATH/env propagation issues inside the setup script
           choco install -y nvm.install nvm | Write-Host
           $env:ChocolateyInstall = "C:\ProgramData\chocolatey"
-          if (Get-Command refreshenv -ErrorAction SilentlyContinue) { refreshenv } else { $env:Path = "C:\ProgramData\chocolatey\bin;$env:Path" }
+          # Import Chocolatey profile so refreshenv is available, then refresh PATH/ENV
+          $chocoProfile = Join-Path $env:ChocolateyInstall 'helpers\chocolateyProfile.psm1'
+          if (Test-Path $chocoProfile) { Import-Module $chocoProfile -ErrorAction SilentlyContinue }
+          if (Get-Command refreshenv -ErrorAction SilentlyContinue) {
+            refreshenv
+          } else {
+            $env:Path = "C:\ProgramData\chocolatey\bin;$env:Path"
+          }
           # Persist NVM variables at machine scope as some scripts validate on that scope
           [Environment]::SetEnvironmentVariable('NVM_HOME', $env:NVM_HOME, 'Machine')
           [Environment]::SetEnvironmentVariable('NVM_SYMLINK', $env:NVM_SYMLINK, 'Machine')
 
           # Ensure nvm is invokable even if PATH isn't refreshed
           $nvmExeCandidates = @(
+            # Common install target for nvm-windows
             "$env:NVM_HOME\nvm.exe",
-            "C:\\ProgramData\\chocolatey\\bin\\nvm.exe"
+            # Default install path used by GUI installer
+            "C:\\Program Files\\nvm\\nvm.exe",
+            # Chocolatey shim location
+            (Join-Path $env:ChocolateyInstall 'bin\nvm.exe'),
+            # Chocolatey package tools locations (portable/content)
+            (Join-Path $env:ChocolateyInstall 'lib\nvm\tools\nvm.exe'),
+            (Join-Path $env:ChocolateyInstall 'lib\nvm.portable\tools\nvm.exe')
           )
           $nvmExe = $null
           foreach ($cand in $nvmExeCandidates) { if (Test-Path $cand) { $nvmExe = $cand; break } }
-          if (-not $nvmExe) { Write-Error "nvm.exe not found at expected locations"; exit 1 }
+          # If still not found, attempt to run the GUI installer silently to lay down files in NVM_HOME
+          if (-not $nvmExe) {
+            $nvmSetup = Join-Path $env:ChocolateyInstall 'lib\nvm.install\tools\nvm-setup.exe'
+            if (Test-Path $nvmSetup) {
+              # Try common silent switches depending on installer tech; ignore failures but re-scan candidates after
+              & $nvmSetup /VERYSILENT /NORESTART /DIR="$env:NVM_HOME" *>$null 2>$null
+              & $nvmSetup /SILENT /NORESTART /DIR="$env:NVM_HOME" *>$null 2>$null
+            }
+            foreach ($cand in $nvmExeCandidates) { if (Test-Path $cand) { $nvmExe = $cand; break } }
+          }
+          if (-not $nvmExe) {
+            Write-Host "Searched for nvm.exe in:"
+            $nvmExeCandidates | ForEach-Object { Write-Host " - $_" }
+            Write-Error "nvm.exe not found at expected locations"
+            exit 1
+          }
           & $nvmExe version | Write-Host
           # Add directory containing nvm.exe to PATH for the remainder of this step
           $env:Path = (Split-Path -Parent $nvmExe) + ';' + $env:Path
@@ -192,4 +221,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: setup-windows-log
-          path: setup-windows.log
+          path: |
+            setup-windows.log
+            C:\\ProgramData\\chocolatey\\logs\\chocolatey.log
