@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Select-Object Name, FullName)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
