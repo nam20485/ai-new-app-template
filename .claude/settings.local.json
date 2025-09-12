@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(Select-Object Name, FullName)"
+      "Bash(echo $SHELL)",
+      "Bash(claude mcp:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
