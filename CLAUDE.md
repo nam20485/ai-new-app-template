@@ -4,23 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Common Development Commands
 
+Your shell is MS PowerShell Core (pwsh.exe).
+
+- Do not use linux Bash or sh-based commands.
+- Formuldate all commands for pwsh.
+
 ### Environment Verification
-```bash
-npm run env:summary
-```
-Confirms Node.js environment is properly configured.
-
-### Repository Template Initialization
-```powershell
-# Initialize new repository from this template
-./scripts/init-template-repo.ps1 -RepoPath <target-path> -RepoName <repo-name>
-
-# Complete new repository orchestration workflow
-./scripts/initiate-new-repo.ps1
-
-# Create repository with planning documentation
-./scripts/create-repo-with-plan-docs.ps1
-```
 
 ### GitHub Automation Scripts
 ```powershell
@@ -30,17 +19,6 @@ Confirms Node.js environment is properly configured.
 # Create standard milestones
 ./scripts/create-milestones.ps1
 
-# Validate available toolset
-./scripts/validate-toolset.ps1
-```
-
-### Orchestration Commands
-```bash
-# Dry run orchestration with sample workflow
-npm run orchestrate:dry
-
-# Dry run orchestration from file
-npm run orchestrate:dry:file
 ```
 
 ## Architecture Overview
@@ -50,8 +28,13 @@ This repository is a **template for AI-assisted application development** that e
 
 1. **Remote Canonical Instructions**: Core AI instruction modules live in `nam20485/agent-instructions` repository
 2. **Local Instruction Modules**: Local files that reference and extend remote instructions
-3. **PowerShell Automation Layer**: All repository operations are PowerShell-scripted
-4. **Workflow Orchestration**: Dynamic workflows resolved from remote canonical sources
+3. **Automation Layer**: All repository operations are performed through:
+4. 1. MCO github server tools
+   2. gh CLI command (ask for authentication if needed)
+   3. terminal commands (pwsh shell)
+   4. create powershell .ps1 scripts and run them (or use existing)
+   5. GitHub API calls
+5. **Workflow Orchestration**: Dynamic workflows resolved from remote canonical sources
 
 ### Tool Hierarchy (Critical for Development)
 **Must follow this priority order for all GitHub operations:**
@@ -78,12 +61,12 @@ This repository is a **template for AI-assisted application development** that e
    - Maintaining state across workflow stages
    - Caching frequently referenced information
 
-3. **Gemini Tool** (`mcp_gemini_*`) - **USE FOR CONTEXT CONSERVATION**:
+<!-- 3. **Gemini Tool** (`mcp_gemini_*`) - **USE FOR CONTEXT CONSERVATION**:
    - Reading and analyzing large codebases (1M token context)
    - Processing extensive documentation or logs
    - Analyzing multiple files simultaneously
    - Conserving Claude's context window for other tasks
-   - Delegating large-scale code comprehension tasks
+   - Delegating large-scale code comprehension tasks -->
 
 ### Key Architectural Patterns
 
@@ -93,31 +76,36 @@ This repository is a **template for AI-assisted application development** that e
 - Remote canonical repository (`nam20485/agent-instructions`) contains authoritative workflow definitions
 - Local `local_ai_instruction_modules/` contains workspace-specific references and toolset configuration
 - Never use local mirrors for workflow derivation
+- When beginning a workflow, read all workflow instructions
+  - Local
+  - Remote
+    - workflow assignments
+    - dynamic workflows
+    - specific dynamics workflow
+    - specific workflow assignments mentioned in the main dynamic workflow
 
 **PowerShell-Centric Scripting**: Default shell is PowerShell (pwsh), not bash. All automation scripts use PowerShell with proper error handling and validation.
 
 ### Core System Components
 
 **Workflow Assignment System**: 
+- Dynamic workflow assignments resolved from remote canonical sources `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
 - Assignments resolved from `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
-- Available workflows: `create-app-plan`, `initiate-new-repository`, `orchestrate-dynamic-workflow`
+- Available workflows: everything in:
+  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
+  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
 - Always use RAW URLs when fetching remote workflow files
-
-**Template Initialization Pipeline**:
-1. Clone from template → 2. Rename workspace artifacts → 3. Configure devcontainer → 4. Import labels/milestones → 5. Initialize project structure
 
 **Tool Configuration**: 
 - `toolset.selected.json` defines enabled tools (126 tools enabled)
 - Web-fetch tool disabled - use PowerShell `Invoke-WebRequest` instead
 - MCP filesystem, GitHub, Sequential Thinking, Memory, and Gemini tools are primary automation interfaces
-- **REQUIRED MCP SERVERS**: filesystem, github, sequential-thinking, memory, gemini-cli
+- **REQUIRED MCP SERVERS**: filesystem, github, sequential-thinking, memory, gemini-cli, desktop-commander
 
 ## Development Environment Requirements
 
-- **Node.js**: 22.18.0 (pinned in `.nvmrc`)
 - **. NET SDK**: 9.0.102 (pinned in `global.json`) 
 - **PowerShell**: 7+ required for cross-platform script execution
-- **Package Manager**: pnpm via Corepack
 
 ## Critical Development Rules
 
@@ -127,4 +115,4 @@ This repository is a **template for AI-assisted application development** that e
 4. **Tool Priority**: Use MCP GitHub tools first, terminal `gh` commands only as documented last resort
 5. **Sequential Thinking**: MUST use Sequential Thinking MCP tool for ALL multi-step tasks and complex problem solving
 6. **Memory Management**: MUST use Memory MCP tool to maintain context and state across workflow stages
-7. **Context Conservation**: USE Gemini MCP tool (1M token context) when reading large codebases or extensive documentation to preserve Claude's context
+<!-- 7. **Context Conservation**: USE Gemini MCP tool (1M token context) when reading large codebases or extensive documentation to preserve Claude's context -->

@@ -24,5 +24,5 @@ Agent-Instructions & Workflows
 - Assignments: resolve by shortId from `ai-workflow-assignments.md`; follow acceptance criteria verbatim
 - Copilot rules: `.github/copilot-instructions.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
 - Tool priority: Sequential Thinking → Memory → Gemini (for large contexts) → MCP GitHub tools → VS Code → `gh` CLI; avoid GitHub web UI; scripts `./scripts/*.ps1`; .NET SDK via `global.json` (9.0.102); no Cursor rules
-Use the `workflow-orchestrator` agent to run dynamic workflows. Have this agent delegate tasks to other agents as needed.
+Use the `orchestrator` agent to run dynamic workflows. Have this agent delegate tasks to other agents as needed.
 **CRITICAL**: All agents MUST use Sequential Thinking for task planning, Memory for state management, and Gemini for large-scale code analysis.
