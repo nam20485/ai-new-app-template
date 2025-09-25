@@ -9,9 +9,6 @@ This document establishes mandatory protocols for maximizing automation and tool
 Before beginning ANY GitHub-related assignment:
 
 1. **Inventory Available Tools** (MANDATORY)
-   - Initialize Sequential Thinking (`mcp_sequential_thinking_*`) for task breakdown
-   - Use Memory (`mcp_memory_*`) to store project context and patterns
-   - For large codebase analysis, use Gemini (`mcp_gemini_*`) to conserve context
    - Execute systematic tool discovery using available MCP tools
    - Document ALL GitHub-related tools found
    - Map tools to planned assignment tasks
@@ -47,12 +44,7 @@ Before beginning ANY GitHub-related assignment:
 
 ## GitHub Automation Hierarchy
 
-### Priority 0: MCP Cognitive Tools (USE BEFORE ALL OTHERS)
-- **Sequential Thinking** (`mcp_sequential_thinking_*`): MANDATORY for all task planning and breakdown
-- **Memory** (`mcp_memory_*`): MANDATORY for context storage and state management
-- **Gemini** (`mcp_gemini_*`): USE for large codebase analysis (1M token context) to conserve Claude's context
-
-### Priority 1: MCP GitHub Tools (USE AFTER COGNITIVE TOOLS)
+### Priority 1: MCP GitHub Tools (USE FIRST)
 - `mcp_github_*` tools for all repository operations
 - Issue creation, labeling, milestone management
 - Repository configuration and project setup
@@ -80,9 +72,6 @@ All assignment templates must include:
 
 ```markdown
 ## Automation Checkpoint
-- [ ] Sequential Thinking initialized for task breakdown
-- [ ] Memory configured for context storage
-- [ ] Gemini ready for large codebase analysis (if needed)
 - [ ] Tool discovery completed (100% coverage)
 - [ ] Automation strategy documented
 - [ ] Manual steps justified with tool limitations
@@ -154,10 +143,6 @@ Use the selected toolset file to enumerate exactly which tools are enabled in th
 - Disabled tools: web-fetch, placeholder edit tool, and new-workspace scaffolding
 
 Guidance:
-- **FIRST**: Use Sequential Thinking and Memory MCP tools for planning and context management
-- **SECOND**: Use Gemini MCP tool for large codebase reading to conserve context
-- **THEN**: Always prefer MCP GitHub tools (`mcp_github_*`) for repo/project/issue operations.
+- Always prefer MCP GitHub tools (`mcp_github_*`) for repo/project/issue operations.
 - Use VS Code GitHub integration next (`run_vscode_command`).
 - Use terminal `gh` only when neither of the above can fulfill the task; include justification per Automation Checkpoint.
-
-**REQUIRED MCP SERVERS**: filesystem, github, sequential-thinking, memory, gemini-cli
