@@ -95,6 +95,11 @@ This repository is a **template for AI-assisted application development** that e
   - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
   - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
 - Always use RAW URLs when fetching remote workflow files
+- Always read all of your `ai_instruction_modules` before planning or acting
+
+**Dynamic Workflow System**:
+- Dynamic workflows resolved from remote canonical sources
+- Resolve all dynamic workflow assignment and the workflow assignments contained inside before planning or acting.
 
 **Tool Configuration**: 
 - `toolset.selected.json` defines enabled tools (126 tools enabled)
