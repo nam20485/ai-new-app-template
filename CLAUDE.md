@@ -1,123 +1,113 @@
-# CLAUDE.md
+# Instructions (Claude Code)
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Where to Find Your Instructions
+- Your custom instructions are located in the files inside of the [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions/tree/main) repository
+- Look at the files in the `main` branch
+- Start with your core instructions (linked below)
+- Then follow the links to the other instruction files in that repo as required or needed.
+- You will need to follow the links and read the files to understand your instructions
 
-## Common Development Commands
+## How to Read Your Instructions
+- Read the core instructions first
+- Then follow the links from the core instructions to the other instruction files
+- Some files are **REQUIRED** and some are **OPTIONAL**
+- Files marked **REQUIRED** are ALWAYS active and so must be followed and read
+- Otherwise files are optionally active based on user needs and your assigned roles and workflow assignments
 
-Your shell is MS PowerShell Core (pwsh.exe).
+## **IMPORTANT RULES**
+- Don't assume your shell is bash. Its probably pwsh.
+- Detect what type of shell you have before running any commands.
+- Your web-fetch tool is disabled. Use powershell or curl to fetch files from the web.
+- If there are many files, then create a pwsh script to download them in parallel.
 
-- Do not use linux Bash or sh-based commands.
-- Formuldate all commands for pwsh.
+## Core Instructions (**REQUIRED**)
+[ai-core-instructions.md](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md)
 
-### Environment Verification
+## Local AI Instructions (**REQUIRED**)
+Local AI instruction module files are located locally in this repo in the [local_ai_instruction_modules](../local_ai_instruction_modules) directory.
 
-### GitHub Automation Scripts
-```powershell
-# Import labels from ./.labels.json
-./scripts/import-labels.ps1
+## Dynamic Workflow Orchestration (**REQUIRED**)
+Agents MUST resolve dynamic workflows from the remote canonical repository. Do not use local mirrors.
+[ai-dynamic-workflows.md](../local_ai_instruction_modules/ai-dynamic-workflows.md)
 
-# Create standard milestones
-./scripts/create-milestones.ps1
+## Workflow Assignments (**REQUIRED**)
+Agents MUST resolve workflow assignments (by shortId) from the remote canonical repository. Do not use local mirrors.
+[ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
 
-```
+## Terminal Commands (Optional)
+Read before running any terminal commands, of if you need Github CL.I
+- [ai-terminal-commands.md](../local_ai_instruction_modules/ai-terminal-commands.md)
 
-## Architecture Overview
+## Tools & Automation Protocol (REQUIRED)
+Agents must prefer automation-first approaches and use only the currently-selected tools. Review the local module for the full policy and the enumerated toolset:
+- [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
+- Selected toolset JSON (exactly 126 enabled tools): [toolset.selected.json](../local_ai_instruction_modules/toolset.selected.json)
 
-### AI-Powered Template System
-This repository is a **template for AI-assisted application development** that enforces strict automation protocols. The architecture is built around:
+Key rules:
+- Use MCP GitHub tools first, then VS Code integration, and only fall back to terminal gh as a last resort.
+- The web-fetch tool is disabled; fetch remote files via PowerShell (Invoke-WebRequest) or curl.
+- Maintain ≥90% automation coverage for GitHub operations and document any manual exceptions.
+- If GitHub tools (MCP or gh) are not authorized, initiate the authentication/login flow (e.g., start gh auth login); the user will complete the interactive prompts.
 
-1. **Remote Canonical Instructions**: Core AI instruction modules live in `nam20485/agent-instructions` repository
-2. **Local Instruction Modules**: Local files that reference and extend remote instructions
-3. **Automation Layer**: All repository operations are performed through:
-4. 1. MCO github server tools
-   2. gh CLI command (ask for authentication if needed)
-   3. terminal commands (pwsh shell)
-   4. create powershell .ps1 scripts and run them (or use existing)
-   5. GitHub API calls
-5. **Workflow Orchestration**: Dynamic workflows resolved from remote canonical sources
+## **Remote Repository with Main/Canonical AI Instruction Modules**
 
-### Tool Hierarchy (Critical for Development)
-**Must follow this priority order for all GitHub operations:**
+[nam20485/agent-instructions Repository](https://github.com/nam20485/agent-instructions/main)
 
-1. **MCP GitHub Tools** (`mcp_github_*` functions) - Use first
-2. **VS Code GitHub Integration** (`run_vscode_command`) - Fallback
-3. **Terminal GitHub CLI** (`gh` commands) - Last resort only
-4. **Manual GitHub Web Interface** - **PROHIBITED**
+The main set of AI instruction modules is located in this remote repository. It contains the following:
+- Dynamic workflows
+- Workflow assignments
+- Main AI instruction modules
 
-### Sequential Thinking, Memory, and Gemini Tools (MANDATORY)
-**Use these MCP tools for ALL complex tasks:**
+### Remote Repo Details
 
-1. **Sequential Thinking Tool** (`mcp_sequential_thinking_*`) - **ALWAYS USE** for:
-   - Breaking down complex problems into steps
-   - Planning multi-stage implementations
-   - Analyzing dependencies and relationships
-   - Creating systematic approaches to tasks
-   - Debugging and troubleshooting workflows
+ Repository: nam20485/agent-instructions
+- Full repo URL: [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions)
+- Branch: main
+- Directory: [ai_instruction_modules](https://github.com/nam20485/agent-instructions/tree/main/ai_instruction_modules/)
+- Branch: main
+- Assignments directory: ai_instruction_modules/ai-workflow-assignments/
+ - Active assignments index in this workspace: see [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
 
-2. **Memory Tool** (`mcp_memory_*`) - **ALWAYS USE** for:
-   - Storing important context between tasks
-   - Tracking project-specific patterns and conventions
-   - Remembering user preferences and decisions
-   - Maintaining state across workflow stages
-   - Caching frequently referenced information
+#### OVERRIDE NOTE
+**IMPORTANT**: When accessing files in the remote repository, always use the RAW URL. Do not use the GitHub UI to view the file. The RAW URL is the URL that you get when you click on the "Raw" button in the GitHub UI. Most URLs referenced in these files of the GIT UI form. They must be translated to the RAW URL form before use. 
 
-<!-- 3. **Gemini Tool** (`mcp_gemini_*`) - **USE FOR CONTEXT CONSERVATION**:
-   - Reading and analyzing large codebases (1M token context)
-   - Processing extensive documentation or logs
-   - Analyzing multiple files simultaneously
-   - Conserving Claude's context window for other tasks
-   - Delegating large-scale code comprehension tasks -->
+Examples: 
 
-### Key Architectural Patterns
+- GitHub UI for the `ai-core-instructions.md` file is: https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md
 
-**Automation-First Design**: 90% minimum automation coverage required for all GitHub operations. Every manual step must be documented with tool limitation justification.
+- RAW URL for the `ai-core-instructions.md` file is: https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md.
 
-**Remote-Local Instruction Split**: 
-- Remote canonical repository (`nam20485/agent-instructions`) contains authoritative workflow definitions
-- Local `local_ai_instruction_modules/` contains workspace-specific references and toolset configuration
-- Never use local mirrors for workflow derivation
-- When beginning a workflow, read all workflow instructions
-  - Local
-  - Remote
-    - workflow assignments
-    - dynamic workflows
-    - specific dynamics workflow
-    - specific workflow assignments mentioned in the main dynamic workflow
+##### Translating URLs
+To translate a GitHub UI URL to a RAW URL, replace `https://github.com/` with `https://raw.githubusercontent.com/`.
 
-**PowerShell-Centric Scripting**: Default shell is PowerShell (pwsh), not bash. All automation scripts use PowerShell with proper error handling and validation.
+*https://github.com/nam20485/agent-instructions/blob/main/<file-path> --> https://raw.githubusercontent.com/nam20485/agent-instructions/main/<file-path>*
 
-### Core System Components
+For example, the followingGitHub UI URL: https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md 
 
-**Workflow Assignment System**: 
-- Dynamic workflow assignments resolved from remote canonical sources `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
-- Assignments resolved from `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
-- Available workflows: everything in:
-  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
-  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
-- Always use RAW URLs when fetching remote workflow files
-- Always read all of your `ai_instruction_modules` before planning or acting
+is translated to the following RAW URL: https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md
 
-**Dynamic Workflow System**:
-- Dynamic workflows resolved from remote canonical sources
-- Resolve all dynamic workflow assignment and the workflow assignments contained inside before planning or acting.
+Examples:
 
-**Tool Configuration**: 
-- `toolset.selected.json` defines enabled tools (126 tools enabled)
-- Web-fetch tool disabled - use PowerShell `Invoke-WebRequest` instead
-- MCP filesystem, GitHub, Sequential Thinking, Memory, and Gemini tools are primary automation interfaces
-- **REQUIRED MCP SERVERS**: filesystem, github, sequential-thinking, memory, gemini-cli, desktop-commander
+- GitHub UI: https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md
+- Raw URL:   https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md
 
-## Development Environment Requirements
+- GitHub UI: https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/initiate-new-repository.md
+- Raw URL:   https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/initiate-new-repository.md
 
-- **. NET SDK**: 9.0.102 (pinned in `global.json`) 
-- **PowerShell**: 7+ required for cross-platform script execution
+Single Source of Truth Policy:
 
-## Critical Development Rules
+- Dynamic workflow files (under `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/`) and workflow assignment files (under `ai_instruction_modules/ai-workflow-assignments/`) in the `nam20485/agent-instructions` repository are the ONLY authoritative sources for steps and acceptance criteria.
+- Local golden files, cached plans, or mirrors must not be used to derive steps or acceptance criteria. Delete any such artifacts if present.
+- Changes to dynamic workflow or assignment files in the remote canonical repository take effect immediately on subsequent runs.
+- The orchestrator must always fetch and execute directly from the remote canonical URLs listed below.
+- All agent instructions files are located in the remote repository except for the `local_ai_instruction_modules`, which are located in the local (this) repo under [local_ai_instruction_modules](../local_ai_instruction_modules)
+    - [ai-dynamic-workflows.md](../local_ai_instruction_modules/ai-dynamic-workflows.md)
+    - [ai-local-instructions.md](../local_ai_instruction_modules/ai-local-instructions.md)
+    - [ai-terminal-commands.md](../local_ai_instruction_modules/ai-terminal-commands.md)
+    - [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
+    - [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
+    - [ai-claude-coder-agents.md](../local_ai_instruction_modules/ai-claude-coder-agents.md)
+    - [ai-development-instructions.md](../local_ai_instruction_modules/ai-development-instructions.md)
+- The `local_ai_instruction_modules` are allowed to be read from the local repo's copies.
 
-1. **Shell Detection**: Always check if you're in PowerShell vs bash before running commands
-2. **Automation Coverage**: Achieve 90%+ automation for all GitHub operations or document tool limitations
-3. **Remote Authority**: Only use remote canonical repository files for workflow definitions
-4. **Tool Priority**: Use MCP GitHub tools first, terminal `gh` commands only as documented last resort
-5. **Sequential Thinking**: MUST use Sequential Thinking MCP tool for ALL multi-step tasks and complex problem solving
-6. **Memory Management**: MUST use Memory MCP tool to maintain context and state across workflow stages
-<!-- 7. **Context Conservation**: USE Gemini MCP tool (1M token context) when reading large codebases or extensive documentation to preserve Claude's context -->
+For role-specific guidance, review `ai-claude-coder-agents.md` and the individual agent briefs under `.claude/agents/` before delegating or executing tasks.

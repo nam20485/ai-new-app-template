@@ -15,7 +15,7 @@
 - Otherwise files are optionally active based on user needs and your assigned roles and workflow assignments
 
 ## **IMPORTANT RULES**
-- Don't assume your shell is bash. Its probably pwsh. 
+- Don't assume your shell is bash. Its probably pwsh.
 - Detect what type of shell you have before running any commands.
 - Your web-fetch tool is disabled. Use powershell or curl to fetch files from the web.
 - If there are many files, then create a pwsh script to download them in parallel.
@@ -24,14 +24,7 @@
 [ai-core-instructions.md](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md)
 
 ## Local AI Instructions (**REQUIRED**)
-Local AI instruction module files are located in the [local_ai_instruction_modules](../local_ai_instruction_modules) directory.
-
-- [ai-dynamic-workflows.md](../local_ai_instruction_modules/ai-dynamic-workflows.md)
-- [ai-local-instructions.md](../local_ai_instruction_modules/ai-local-instructions.md)
-- [ai-terminal-commands.md](../local_ai_instruction_modules/ai-terminal-commands.md)
-- [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
-- [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
-- [ai-claude-coder-agents.md](../local_ai_instruction_modules/ai-claude-coder-agents.md)
+Local AI instruction module files are located locally in this repo in the [local_ai_instruction_modules](../local_ai_instruction_modules) directory.
 
 ## Dynamic Workflow Orchestration (**REQUIRED**)
 Agents MUST resolve dynamic workflows from the remote canonical repository. Do not use local mirrors.
@@ -68,10 +61,12 @@ The main set of AI instruction modules is located in this remote repository. It 
 ### Remote Repo Details
 
  Repository: nam20485/agent-instructions
-- Full repo URL: https://github.com/nam20485/agent-instructions
+- Full repo URL: [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions)
+- Branch: main
+- Directory: [ai_instruction_modules](https://github.com/nam20485/agent-instructions/tree/main/ai_instruction_modules/)
 - Branch: main
 - Assignments directory: ai_instruction_modules/ai-workflow-assignments/
- - Active assignments index in this workspace: see `local_ai_instruction_modules/ai-workflow-assignments.md`
+ - Active assignments index in this workspace: see [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
 
 #### OVERRIDE NOTE
 **IMPORTANT**: When accessing files in the remote repository, always use the RAW URL. Do not use the GitHub UI to view the file. The RAW URL is the URL that you get when you click on the "Raw" button in the GitHub UI. Most URLs referenced in these files of the GIT UI form. They must be translated to the RAW URL form before use. 
@@ -87,13 +82,9 @@ To translate a GitHub UI URL to a RAW URL, replace `https://github.com/` with `h
 
 *https://github.com/nam20485/agent-instructions/blob/main/<file-path> --> https://raw.githubusercontent.com/nam20485/agent-instructions/main/<file-path>*
 
-For example, the following GitHub UI URL:
+For example, the followingGitHub UI URL: https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md 
 
-`https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md`
-
-is translated to the following RAW URL:
-
-`https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md`
+is translated to the following RAW URL: https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md
 
 Examples:
 
@@ -110,12 +101,13 @@ Single Source of Truth Policy:
 - Changes to dynamic workflow or assignment files in the remote canonical repository take effect immediately on subsequent runs.
 - The orchestrator must always fetch and execute directly from the remote canonical URLs listed below.
 - All agent instructions files are located in the remote repository except for the `local_ai_instruction_modules`, which are located in the local (this) repo under [local_ai_instruction_modules](../local_ai_instruction_modules)
-- [ai-dynamic-workflows.md](../local_ai_instruction_modules/ai-dynamic-workflows.md)
-- [ai-local-instructions.md](../local_ai_instruction_modules/ai-local-instructions.md)
-- [ai-terminal-commands.md](../local_ai_instruction_modules/ai-terminal-commands.md)
-- [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
-- [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
-- [ai-claude-coder-agents.md](../local_ai_instruction_modules/ai-claude-coder-agents.md)
+    - [ai-dynamic-workflows.md](../local_ai_instruction_modules/ai-dynamic-workflows.md)
+    - [ai-local-instructions.md](../local_ai_instruction_modules/ai-local-instructions.md)
+    - [ai-terminal-commands.md](../local_ai_instruction_modules/ai-terminal-commands.md)
+    - [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
+    - [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
+    - [ai-claude-coder-agents.md](../local_ai_instruction_modules/ai-claude-coder-agents.md)
+    - [ai-development-instructions.md](../local_ai_instruction_modules/ai-development-instructions.md)
 - The `local_ai_instruction_modules` are allowed to be read from the local repo's copies.
 
 For role-specific guidance, review `ai-claude-coder-agents.md` and the individual agent briefs under `.claude/agents/` before delegating or executing tasks.

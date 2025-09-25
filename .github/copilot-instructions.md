@@ -15,7 +15,7 @@
 - Otherwise files are optionally active based on user needs and your assigned roles and workflow assignments
 
 ## **IMPORTANT RULES**
-- Don't assume your shell is bash. Its probably pwsh. 
+- Don't assume your shell is bash. Its probably pwsh.
 - Detect what type of shell you have before running any commands.
 - Your web-fetch tool is disabled. Use powershell or curl to fetch files from the web.
 - If there are many files, then create a pwsh script to download them in parallel.
@@ -61,7 +61,9 @@ The main set of AI instruction modules is located in this remote repository. It 
 ### Remote Repo Details
 
  Repository: nam20485/agent-instructions
-- Full repo URL: https://github.com/nam20485/agent-instructions
+- Full repo URL: [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions)
+- Branch: main
+- Directory: [ai_instruction_modules](https://github.com/nam20485/agent-instructions/tree/main/ai_instruction_modules/)
 - Branch: main
 - Assignments directory: ai_instruction_modules/ai-workflow-assignments/
  - Active assignments index in this workspace: see [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
@@ -105,6 +107,7 @@ Single Source of Truth Policy:
     - [ai-tools-and-automation.md](../local_ai_instruction_modules/ai-tools-and-automation.md)
     - [ai-workflow-assignments.md](../local_ai_instruction_modules/ai-workflow-assignments.md)
     - [ai-claude-coder-agents.md](../local_ai_instruction_modules/ai-claude-coder-agents.md)
+    - [ai-development-instructions.md](../local_ai_instruction_modules/ai-development-instructions.md)
 - The `local_ai_instruction_modules` are allowed to be read from the local repo's copies.
 
 For role-specific guidance, review `ai-claude-coder-agents.md` and the individual agent briefs under `.claude/agents/` before delegating or executing tasks.
