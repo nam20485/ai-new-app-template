@@ -2,7 +2,7 @@
 
 - Default shell: PowerShell (pwsh). Detect before running commands.
 - Web fetch: Use PowerShell Invoke-WebRequest (or curl) — web-fetch tool is disabled.
-- Prefer automation via MCP tools; terminal is last resort.
+- Prefer automation via MCP tools, terminal commands next, then GitHub API calls last.
 
 ## PowerShell basics
 - Current shell: `$PSVersionTable.PSEdition`, `$PSVersionTable.PSVersion`

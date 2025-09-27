@@ -61,12 +61,12 @@ This repository is a **template for AI-assisted application development** that e
    - Maintaining state across workflow stages
    - Caching frequently referenced information
 
-<!-- 3. **Gemini Tool** (`mcp_gemini_*`) - **USE FOR CONTEXT CONSERVATION**:
+3. **Gemini Tool** (`mcp_gemini_*`) - **USE FOR CONTEXT CONSERVATION**:
    - Reading and analyzing large codebases (1M token context)
    - Processing extensive documentation or logs
    - Analyzing multiple files simultaneously
    - Conserving Claude's context window for other tasks
-   - Delegating large-scale code comprehension tasks -->
+   - Delegating large-scale code comprehension tasks
 
 ### Key Architectural Patterns
 

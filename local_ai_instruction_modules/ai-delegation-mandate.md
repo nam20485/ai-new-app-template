@@ -38,7 +38,7 @@ This document provides mandatory delegation requirements that enhance the orches
 
 ### Delegation Decision Documentation
 For each potential task, orchestrator must document:
-```
+```markdown
 Task: [Description]
 Agent Selected: [Agent Type]
 Rationale: [Why this agent]
@@ -53,10 +53,36 @@ Direct Execution Justification: [Only if not delegated - must be tool limitation
 ## Script
 
 ### Delegation Requirements (MANDATORY)
-Each assignment MUST be delegated to specialized agents:
-- `init-existing-repository` → delegate to `devops-engineer` AND `backend-developer`
+Each assignment MUST be delegated to specialized agents **-OR-** broken down by task type according to section #Delegation Strategies:
+- `init-existing-repository` → delegate to `devops-engineer` AND `backend-developer` AND `github-expert`
 - `create-app-plan` → delegate to `product-manager` AND `planner`
-- `create-project-structure` → delegate to `backend-developer` AND `devops-engineer`
+- `create-project-structure` → delegate to `backend-developer` AND `devops-engineer` AND `github-expert`
+
+### Delegation Strategies
+1. Entire Assignment Delegation: Use Task tool to assign entire assignment to specialist agent
+2. Partial Task Delegation: Break down assignment into tasks and delegate each to appropriate agents
+
+- Choose which tasks to delegate based on agent expertise and availability
+- Consider potential bottlenecks and reallocate tasks as needed
+- Monitor delegated tasks and provide guidance without direct execution
+- Choose delegation approach based on assignment complexity and agent capabilities
+
+```
+
+### Delegation Tasks (Examples) with Agent Types
+
+| Task | Primary Agents | Supporting Agents | Notes |
+| --- | --- | --- | --- |
+| `init-existing-repository` | `devops-engineer`, `backend-developer` | `github-expert` | Configure remotes, branches, and automation scripts. |
+| `create-app-plan` | `product-manager`, `planner` | `documentation-expert` | Define roadmap, milestones, and success metrics. |
+| `create-project-structure` | `backend-developer`, `devops-engineer` | `github-expert`, `qa-test-engineer` | Scaffold services, CI/CD, and baseline tests. |
+| `update-documentation` | `documentation-expert` | `product-manager`, `technical-writer` | Capture decisions, runbooks, and onboarding guides. |
+| `expand-test-suite` | `qa-test-engineer` | `developer`, `backend-developer` | Add regression, integration, and edge-case coverage. |
+| `frontend-feature` | `frontend-developer` | `ux-ui-designer`, `qa-test-engineer` | Build UI components and validate accessibility. |
+| `infrastructure-hardening` | `devops-engineer` | `cloud-infra-expert`, `security-expert` | Harden pipelines, observability, and runtime guardrails. |
+| `security-audit` | `security-expert` | `backend-developer`, `devops-engineer` | Review threat models, secrets hygiene, and dependency risk. |
+| `data-workflow` | `data-scientist` | `ml-engineer`, `database-admin` | Design pipelines, storage strategy, and evaluation loops. |
+| `performance-optimization` | `performance-optimizer` | `backend-developer`, `devops-engineer` | Profile bottlenecks and tune resource usage. |
 
 ### Execution Rules
 - Orchestrator role: Coordination and approval ONLY
@@ -74,7 +100,6 @@ For each `$assignment_name` in `$assignments`, you will:
    6. **VERIFY**: all acceptance criteria are met
    7. **RECORD**: output as `#workflow.$assignment_name`
    8. **REPORT**: delegation compliance metrics
-```
 
 ## Enforcement Mechanisms
 
@@ -86,7 +111,7 @@ For each `$assignment_name` in `$assignments`, you will:
 
 ### Violation Reporting
 If direct execution occurs, orchestrator must immediately report:
-```
+```markdown
 DELEGATION VIOLATION DETECTED
 Task: [What was executed directly]
 Reason: [Tool limitation/emergency/other]
@@ -95,7 +120,7 @@ Impact: [Effect on delegation coverage]
 ```
 
 ### Coverage Calculation
-```
+```markdown
 Delegation Coverage = (Tasks Delegated / Total Tasks) × 100
 Required Threshold: ≥75%
 Target Threshold: ≥90%
@@ -127,8 +152,9 @@ Add to existing Run Report:
 1. **Read this document** before starting any dynamic workflow
 2. **Plan delegation strategy** before executing any technical actions
 3. **Use Task tool extensively** to delegate to appropriate agents
-4. **Maintain delegation tracking** throughout execution
-5. **Report delegation metrics** at checkpoints and completion
+4. **Compile context** from agent instructions and workflow files to pass to agents when delegating
+5. **Maintain delegation tracking** throughout execution
+6. **Report delegation metrics** at checkpoints and completion
 
 ### For Dynamic Workflow Files
 1. **Include delegation requirements** in Script section
@@ -141,6 +167,16 @@ Add to existing Run Report:
 2. **Specify required agent capabilities** for each step
 3. **Include delegation coverage** in Acceptance Criteria
 4. **Document coordination handoffs** between agents
+
+### Context Compilation for Delegation
+When delegating tasks, compile and provide the following context to the delegated agent:
+- **Assignment Overview**: Brief summary of the overall assignment and its objectives.
+- **Specific Task Details**: Clear description of the specific task being delegated, including any relevant requirements or constraints.
+- **Related Instructions**: Relevant sections from the agent instructions that pertain to the task.
+- **Workflow Context**: Information about the current state of the workflow, including any dependencies or prior steps that impact the task.
+- **Acceptance Criteria**: The specific criteria that must be met for the task to be considered complete.
+- **Tools and Resources**: Any specific tools, repositories, or resources that the agent will need to complete the task.
+- **Communication Protocols**: Preferred methods for updates, questions, and reporting progress.
 
 ## Monitoring and Compliance
 

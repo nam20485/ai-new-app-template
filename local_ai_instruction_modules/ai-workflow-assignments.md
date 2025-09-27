@@ -41,6 +41,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [breakdown-epic-and-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/breakdown-epic-and-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/breakdown-epic-and-plan.md`
 
+#### breakdown-stories-and-plan
+
+- shortId: breakdown-stories-and-plan
+
+- GitHub UI: [breakdown-stories-and-plan](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/breakdown-stories-and-plan.md)
+- Raw URL:   [breakdown-stories-and-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/breakdown-stories-and-plan.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/breakdown-stories-and-plan.md`
+
 #### continue-task-work
 
 - shortId: continue-task-work
@@ -48,6 +56,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [continue-task-work](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/continue-task-work.md)
 - Raw URL:   [continue-task-work](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/continue-task-work.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/continue-task-work.md`
+
+#### create-app-plan-and-epics
+
+- shortId: create-app-plan-and-epics
+
+- GitHub UI: [create-app-plan-and-epics](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-app-plan-and-epics.md)
+- Raw URL:   [create-app-plan-and-epics](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-app-plan-and-epics.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-app-plan-and-epics.md`
 
 #### create-app-plan
 
@@ -65,6 +81,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [create-application](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-application.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-application.md`
 
+#### create-epic
+
+- shortId: create-epic
+
+- GitHub UI: [create-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-epic.md)
+- Raw URL:   [create-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-epic.md`
+
 #### create-project-structure
 
 - shortId: create-project-structure
@@ -72,6 +96,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [create-project-structure](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-project-structure.md)
 - Raw URL:   [create-project-structure](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-project-structure.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-project-structure.md`
+
+#### create-story
+
+- shortId: create-story
+
+- GitHub UI: [create-story](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-story.md)
+- Raw URL:   [create-story](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-story.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-story.md`
 
 #### create-test-cases
 
@@ -81,13 +113,21 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [create-test-cases](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-test-cases.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-test-cases.md`
 
-#### initiate-new-repository
+#### debrief-and-document
 
-- shortId: initiate-new-repository
+- shortId: debrief-and-document
 
-- GitHub UI: [initiate-new-repository](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/initiate-new-repository.md)
-- Raw URL:   [initiate-new-repository](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/initiate-new-repository.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/initiate-new-repository.md`
+- GitHub UI: [debrief-and-document](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md)
+- Raw URL:   [debrief-and-document](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md`
+
+#### init-existing-repository
+
+- shortId: init-existing-repository
+
+- GitHub UI: [init-existing-repository](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/init-existing-repository.md)
+- Raw URL:   [init-existing-repository](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/init-existing-repository.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/init-existing-repository.md`
 
 #### orchestrate-dynamic-workflow
 
@@ -112,6 +152,22 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [perform-task](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/perform-task.md)
 - Raw URL:   [perform-task](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/perform-task.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/perform-task.md`
+
+#### plan-epic
+
+- shortId: plan-epic
+
+- GitHub UI: [plan-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/plan-epic.md)
+- Raw URL:   [plan-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/plan-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/plan-epic.md`
+
+#### plan-story
+
+- shortId: plan-story
+
+- GitHub UI: [plan-story](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/plan-story.md)
+- Raw URL:   [plan-story](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/plan-story.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/plan-story.md`
 
 #### pr-approval-and-merge
 

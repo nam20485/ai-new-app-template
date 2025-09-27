@@ -55,10 +55,13 @@ Before beginning ANY GitHub-related assignment:
 - Extension-based GitHub operations
 - Integrated pull request and issue management
 
-### Priority 3: Terminal GitHub CLI (LAST RESORT)
+### Priority 3: Terminal GitHub CLI
 - `gh` commands via `run_in_terminal`
 - Only when MCP tools unavailable
 - Requires explicit justification
+
+### Priority 4: GitHub API 
+- Direct API calls via HTTP requests
 
 ### PROHIBITED: Manual GitHub Web Interface
 - Manual issue creation in browser
