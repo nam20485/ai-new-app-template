@@ -1,5 +1,6 @@
 {
     "chat.mcp.serverSampling": {
+        "*":{"allowedModels": ["*"]},
         "ai-new-app-template/.vscode/mcp.json: sequential-thinking": {
             "allowedModels": [
                 "copilot/gpt-4.1",
