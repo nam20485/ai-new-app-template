@@ -21,7 +21,8 @@ This document provides mandatory delegation requirements that enhance the orches
 
 | Task Category | Primary Agent | Secondary Agent | Justification Required |
 |---------------|---------------|-----------------|----------------------|
-| Repository Setup | `devops-engineer` | `backend-developer` | If tools unavailable |
+| Repository Setup | `devops-engineer`, `github_ops_expert` | `backend-developer` | If tools unavailable |
+| GitHub Operations | `github_ops_expert` | `devops-engineer` | If org-level changes required |
 | Project Planning | `product-manager` | `planner` | Never |
 | Code Structure | `backend-developer` | `developer` | If specialized needs |
 | Documentation | `documentation-expert` | `technical-writer` | If expert unavailable |
@@ -54,9 +55,9 @@ Direct Execution Justification: [Only if not delegated - must be tool limitation
 
 ### Delegation Requirements (MANDATORY)
 Each assignment MUST be delegated to specialized agents **-OR-** broken down by task type according to section #Delegation Strategies:
-- `init-existing-repository` → delegate to `devops-engineer` AND `backend-developer` AND `github-expert`
+- `init-existing-repository` → delegate to `devops-engineer` AND `backend-developer` AND `github_ops_expert`
 - `create-app-plan` → delegate to `product-manager` AND `planner`
-- `create-project-structure` → delegate to `backend-developer` AND `devops-engineer` AND `github-expert`
+- `create-project-structure` → delegate to `backend-developer` AND `devops-engineer` AND `github_ops_expert`
 
 ### Delegation Strategies
 1. Entire Assignment Delegation: Use Task tool to assign entire assignment to specialist agent
@@ -73,9 +74,9 @@ Each assignment MUST be delegated to specialized agents **-OR-** broken down by 
 
 | Task | Primary Agents | Supporting Agents | Notes |
 | --- | --- | --- | --- |
-| `init-existing-repository` | `devops-engineer`, `backend-developer` | `github-expert` | Configure remotes, branches, and automation scripts. |
+| `init-existing-repository` | `devops-engineer`, `backend-developer` | `github_ops_expert` | Configure remotes, branches, and automation scripts. |
 | `create-app-plan` | `product-manager`, `planner` | `documentation-expert` | Define roadmap, milestones, and success metrics. |
-| `create-project-structure` | `backend-developer`, `devops-engineer` | `github-expert`, `qa-test-engineer` | Scaffold services, CI/CD, and baseline tests. |
+| `create-project-structure` | `backend-developer`, `devops-engineer` | `github_ops_expert`, `qa-test-engineer` | Scaffold services, CI/CD, and baseline tests. |
 | `update-documentation` | `documentation-expert` | `product-manager`, `technical-writer` | Capture decisions, runbooks, and onboarding guides. |
 | `expand-test-suite` | `qa-test-engineer` | `developer`, `backend-developer` | Add regression, integration, and edge-case coverage. |
 | `frontend-feature` | `frontend-developer` | `ux-ui-designer`, `qa-test-engineer` | Build UI components and validate accessibility. |

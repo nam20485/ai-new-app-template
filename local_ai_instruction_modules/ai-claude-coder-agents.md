@@ -38,6 +38,7 @@ Planning
 
 Specialized
 - cloud-infra-expert — Cloud architecture, IaC patterns, security baselines.
+- github_ops_expert — Manages GitHub configuration, automation, and policy enforcement.
 - performance-optimizer — Profiles and enforces performance budgets.
 - security-expert — Threat modeling, secrets hygiene, dependency risk.
 - database-admin — Schema/migrations, performance, backup/restore.
