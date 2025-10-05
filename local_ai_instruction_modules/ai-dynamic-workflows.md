@@ -41,6 +41,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [dynamic-workflow-syntax](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/dynamic-workflow-syntax.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/dynamic-workflow-syntax.md`
 
+#### dynamic-workflow-template
+
+- shortId: dynamic-workflow-template
+
+- GitHub UI: [dynamic-workflow-template](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/dynamic-workflow-template.md)
+- Raw URL:   [dynamic-workflow-template](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/dynamic-workflow-template.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/dynamic-workflow-template.md`
+
 #### new-project
 
 - shortId: new-project
@@ -48,6 +56,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - GitHub UI: [new-project](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md)
 - Raw URL:   [new-project](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md`
+
+#### optimize-plan
+
+- shortId: optimize-plan
+
+- GitHub UI: [optimize-plan](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/optimize-plan.md)
+- Raw URL:   [optimize-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/optimize-plan.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/optimize-plan.md`
 
 #### project-setup
 
