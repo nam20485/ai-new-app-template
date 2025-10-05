@@ -17,21 +17,21 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 
 ## Dynamic Workflows 
 
-#### create-epics
+#### analyze-plan
 
-- shortId: create-epics
+- shortId: analyze-plan
 
-- GitHub UI: [create-epics](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics.md)
-- Raw URL:   [create-epics](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics.md`
+- GitHub UI: [analyze-plan](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/analyze-plan.md)
+- Raw URL:   [analyze-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/analyze-plan.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/analyze-plan.md`
 
-#### create-stories
+#### breakdown-plan
 
-- shortId: create-stories
+- shortId: breakdown-plan
 
-- GitHub UI: [create-stories](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories.md)
-- Raw URL:   [create-stories](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories.md`
+- GitHub UI: [breakdown-plan](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md)
+- Raw URL:   [breakdown-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md`
 
 #### dynamic-workflow-syntax
 
@@ -48,22 +48,6 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - GitHub UI: [new-project](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md)
 - Raw URL:   [new-project](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/new-project.md`
-
-#### plan-epics
-
-- shortId: plan-epics
-
-- GitHub UI: [plan-epics](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-epics.md)
-- Raw URL:   [plan-epics](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-epics.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-epics.md`
-
-#### plan-stories
-
-- shortId: plan-stories
-
-- GitHub UI: [plan-stories](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-stories.md)
-- Raw URL:   [plan-stories](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-stories.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/plan-stories.md`
 
 #### project-setup
 
@@ -88,4 +72,12 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - GitHub UI: [sample-minimal](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/sample-minimal.md)
 - Raw URL:   [sample-minimal](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/sample-minimal.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/sample-minimal.md`
+
+#### setup-project-and-create-app
+
+- shortId: setup-project-and-create-app
+
+- GitHub UI: [setup-project-and-create-app](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md)
+- Raw URL:   [setup-project-and-create-app](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md`
 
