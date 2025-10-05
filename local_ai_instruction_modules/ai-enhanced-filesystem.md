@@ -162,6 +162,7 @@ Create or update `~/.config/claude-desktop/mcp_servers.json`:
 
 ### Agent-Filesystem Tool Mapping
 - **devops-engineer**: Infrastructure files, Docker, CI/CD configurations
+- **github_ops_expert**: GitHub repository settings, branch policies, workflow metadata
 - **backend-developer**: Source code, API files, database schemas
 - **frontend-developer**: UI components, stylesheets, asset files
 - **documentation-expert**: README, docs, API documentation
@@ -171,6 +172,7 @@ Create or update `~/.config/claude-desktop/mcp_servers.json`:
 ```markdown
 ## Filesystem Operation Delegation
 - File structure creation → devops-engineer
+- Repository automation metadata → github_ops_expert
 - Code file generation → backend-developer/frontend-developer
 - Documentation creation → documentation-expert
 - Test file creation → qa-test-engineer
