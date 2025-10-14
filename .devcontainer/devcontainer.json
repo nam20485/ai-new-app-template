@@ -17,8 +17,8 @@
 		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.gnupg,target=/home/vscode/.gnupg-host,type=bind,consistency=cached"
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "chmod +x .devcontainer/post-create.sh && .devcontainer/post-create.sh",
-	"postStartCommand": "chmod +x workflow/prompt.sh && workflow/prompt.sh", // Configure tool-specific properties.
+	"postCreateCommand": "sudo chmod +x .devcontainer/post-create.sh && .devcontainer/post-create.sh",
+	"postStartCommand": "sudo chmod +x workflow/prompt.sh && workflow/prompt.sh", // Configure tool-specific properties.
 	// "customizations": {},
 	// Set GPG_TTY for proper GPG agent communication
 	"remoteEnv": {
