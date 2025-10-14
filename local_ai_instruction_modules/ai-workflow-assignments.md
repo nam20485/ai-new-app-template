@@ -81,6 +81,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [create-application](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-application.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-application.md`
 
+#### create-epic
+
+- shortId: create-epic
+
+- GitHub UI: [create-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-epic.md)
+- Raw URL:   [create-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-epic.md`
+
 #### create-project-structure
 
 - shortId: create-project-structure
@@ -88,6 +96,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [create-project-structure](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-project-structure.md)
 - Raw URL:   [create-project-structure](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-project-structure.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-project-structure.md`
+
+#### create-story
+
+- shortId: create-story
+
+- GitHub UI: [create-story](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-story.md)
+- Raw URL:   [create-story](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-story.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-story.md`
 
 #### create-test-cases
 
