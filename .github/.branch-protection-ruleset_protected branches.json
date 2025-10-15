@@ -3,7 +3,7 @@
   "name": "protected branches",
   "target": "branch",
   "source_type": "Repository",
-  "source": "nam20485/support-assistant2",
+  "source": "nam20485/*",
   "enforcement": "active",
   "conditions": {
     "ref_name": {
