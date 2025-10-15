@@ -145,6 +145,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [orchestrate-new-project](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/orchestrate-new-project.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/orchestrate-new-project.md`
 
+#### outline-epic
+
+- shortId: outline-epic
+
+- GitHub UI: [outline-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/outline-epic.md)
+- Raw URL:   [outline-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/outline-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/outline-epic.md`
+
 #### perform-task
 
 - shortId: perform-task

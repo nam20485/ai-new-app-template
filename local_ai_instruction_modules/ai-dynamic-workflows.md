@@ -33,6 +33,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [breakdown-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md`
 
+#### design-app-outline
+
+- shortId: design-app-outline
+
+- GitHub UI: [design-app-outline](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/design-app-outline.md)
+- Raw URL:   [design-app-outline](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/design-app-outline.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/design-app-outline.md`
+
 #### dynamic-workflow-syntax
 
 - shortId: dynamic-workflow-syntax
