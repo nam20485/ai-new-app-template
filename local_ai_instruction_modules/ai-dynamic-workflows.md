@@ -25,6 +25,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [analyze-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/analyze-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/analyze-plan.md`
 
+#### breakdown-epic
+
+- shortId: breakdown-epic
+
+- GitHub UI: [breakdown-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-epic.md)
+- Raw URL:   [breakdown-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-epic.md`
+
 #### breakdown-plan
 
 - shortId: breakdown-plan
