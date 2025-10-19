@@ -185,6 +185,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [request-approval](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/request-approval.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/request-approval.md`
 
+#### update-from-feedback
+
+- shortId: update-from-feedback
+
+- GitHub UI: [update-from-feedback](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/update-from-feedback.md)
+- Raw URL:   [update-from-feedback](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/update-from-feedback.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/update-from-feedback.md`
+
 #### update-plan-issue
 
 - shortId: update-plan-issue

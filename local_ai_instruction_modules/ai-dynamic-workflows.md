@@ -105,13 +105,13 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [project-setup](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/project-setup.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/project-setup.md`
 
-#### README
+#### review-epic-prs
 
-- shortId: README
+- shortId: review-epic-prs
 
-- GitHub UI: [README](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/README.md)
-- Raw URL:   [README](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/README.md)
-- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/README.md`
+- GitHub UI: [review-epic-prs](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/review-epic-prs.md)
+- Raw URL:   [review-epic-prs](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/review-epic-prs.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/review-epic-prs.md`
 
 #### sample-minimal
 
@@ -128,4 +128,12 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - GitHub UI: [setup-project-and-create-app](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md)
 - Raw URL:   [setup-project-and-create-app](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/setup-project-and-create-app.md`
+
+#### single-workflow
+
+- shortId: single-workflow
+
+- GitHub UI: [single-workflow](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/single-workflow.md)
+- Raw URL:   [single-workflow](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/single-workflow.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/single-workflow.md`
 
