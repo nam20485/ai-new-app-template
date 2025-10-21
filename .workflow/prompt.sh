@@ -12,13 +12,13 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
     # claude code to orchestrate project setup
     client="claude"
     cliargs="--verbose --permission-mode bypassPermissions"
-    prompt="/orchestrate-project-setup"
+    prompt="perform the orchestrate-dynamic-workflow with $workflow_name = 'project-setup-upgraded'"
     ;;
   opencode)
     # opencode code to orchestrate project setup
     client="opencode"
     cliargs="--prompt"
-    prompt="/orchestrate-project-setup"
+    prompt="perform the orchestrate-dynamic-workflow with $workflow_name = 'project-setup-upgraded'"
     ;;
   *)
     echo "Usage: $0 {claude|opencode}"
