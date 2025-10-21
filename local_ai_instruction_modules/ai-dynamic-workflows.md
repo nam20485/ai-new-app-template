@@ -97,6 +97,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [optimize-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/optimize-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/optimize-plan.md`
 
+#### project-setup-upgraded
+
+- shortId: project-setup-upgraded
+
+- GitHub UI: [project-setup-upgraded](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/project-setup-upgraded.md)
+- Raw URL:   [project-setup-upgraded](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/project-setup-upgraded.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/project-setup-upgraded.md`
+
 #### project-setup
 
 - shortId: project-setup

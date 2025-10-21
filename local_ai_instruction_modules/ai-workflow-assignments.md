@@ -41,6 +41,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [analyze-progress-doc](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/analyze-progress-doc.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/analyze-progress-doc.md`
 
+#### BEFORE_STARTING_TEMPLATE
+
+- shortId: BEFORE_STARTING_TEMPLATE
+
+- GitHub UI: [BEFORE_STARTING_TEMPLATE](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/BEFORE_STARTING_TEMPLATE.md)
+- Raw URL:   [BEFORE_STARTING_TEMPLATE](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/BEFORE_STARTING_TEMPLATE.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/BEFORE_STARTING_TEMPLATE.md`
+
 #### continue-task-work
 
 - shortId: continue-task-work
@@ -73,6 +81,22 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [create-app-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-app-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-app-plan.md`
 
+#### create-application-foundation
+
+- shortId: create-application-foundation
+
+- GitHub UI: [create-application-foundation](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-application-foundation.md)
+- Raw URL:   [create-application-foundation](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-application-foundation.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-application-foundation.md`
+
+#### create-application-structure
+
+- shortId: create-application-structure
+
+- GitHub UI: [create-application-structure](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-application-structure.md)
+- Raw URL:   [create-application-structure](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-application-structure.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-application-structure.md`
+
 #### create-application
 
 - shortId: create-application
@@ -80,6 +104,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [create-application](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-application.md)
 - Raw URL:   [create-application](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-application.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-application.md`
+
+#### create-deployment-infrastructure
+
+- shortId: create-deployment-infrastructure
+
+- GitHub UI: [create-deployment-infrastructure](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-deployment-infrastructure.md)
+- Raw URL:   [create-deployment-infrastructure](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-deployment-infrastructure.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-deployment-infrastructure.md`
 
 #### create-epic
 
@@ -113,6 +145,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [create-test-cases](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-test-cases.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-test-cases.md`
 
+#### create-testing-infrastructure
+
+- shortId: create-testing-infrastructure
+
+- GitHub UI: [create-testing-infrastructure](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/create-testing-infrastructure.md)
+- Raw URL:   [create-testing-infrastructure](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/create-testing-infrastructure.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/create-testing-infrastructure.md`
+
 #### debrief-and-document
 
 - shortId: debrief-and-document
@@ -120,6 +160,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [debrief-and-document](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md)
 - Raw URL:   [debrief-and-document](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/debrief-and-document.md`
+
+#### ERROR_RECOVERY_TEMPLATE
+
+- shortId: ERROR_RECOVERY_TEMPLATE
+
+- GitHub UI: [ERROR_RECOVERY_TEMPLATE](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/ERROR_RECOVERY_TEMPLATE.md)
+- Raw URL:   [ERROR_RECOVERY_TEMPLATE](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/ERROR_RECOVERY_TEMPLATE.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/ERROR_RECOVERY_TEMPLATE.md`
 
 #### init-existing-repository
 
@@ -177,6 +225,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [pr-review-comments](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/pr-review-comments.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/pr-review-comments.md`
 
+#### PROGRESS_REPORTING_TEMPLATE
+
+- shortId: PROGRESS_REPORTING_TEMPLATE
+
+- GitHub UI: [PROGRESS_REPORTING_TEMPLATE](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/PROGRESS_REPORTING_TEMPLATE.md)
+- Raw URL:   [PROGRESS_REPORTING_TEMPLATE](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/PROGRESS_REPORTING_TEMPLATE.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/PROGRESS_REPORTING_TEMPLATE.md`
+
 #### request-approval
 
 - shortId: request-approval
@@ -200,6 +256,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - GitHub UI: [update-plan-issue](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/update-plan-issue.md)
 - Raw URL:   [update-plan-issue](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/update-plan-issue.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/update-plan-issue.md`
+
+#### validate-assignment-completion
+
+- shortId: validate-assignment-completion
+
+- GitHub UI: [validate-assignment-completion](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/validate-assignment-completion.md)
+- Raw URL:   [validate-assignment-completion](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/validate-assignment-completion.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/validate-assignment-completion.md`
 
 #### validate-dynamic-workflow-script
 
