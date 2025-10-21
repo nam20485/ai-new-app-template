@@ -18,7 +18,7 @@
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "sudo chmod +x .devcontainer/post-create.sh && .devcontainer/post-create.sh",
-	"postStartCommand": "sudo chmod +x workflow/prompt.sh && workflow/prompt.sh opencode", // Configure tool-specific properties.
+	"postStartCommand": "sudo chmod +x .workflow/prompt.sh && .workflow/prompt.sh opencode", // Configure tool-specific properties.
 	// "customizations": {},
 	// Set GPG_TTY for proper GPG agent communication
 	"remoteEnv": {
