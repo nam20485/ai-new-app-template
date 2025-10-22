@@ -27,23 +27,35 @@ docker run --rm ghcr.io/nam20485/agents-prebuild:main-latest bash -lc "claude --
 # Output: 2.0.14 (Claude Code)
 ```
 
-#### OpenCode CLI ❌
-- **Status**: ❌ Not pre-installed
-- **Installation Attempts**:
-  - `uv tool install opencode` - ❌ Failed (package not found in registry)
-  - `pip install opencode` - ❌ Failed (externally-managed environment)
-  - `npm install -g opencode` - ❌ Package not found in npm registry
+#### OpenCode CLI ✅
+- **Installation**: `npm install -g opencode-ai`
+- **Path**: `/usr/bin/opencode` (via npm global install)
+- **Version**: Latest from npm (opencode-ai package)
+- **Status**: ✅ Now installed via npm in Dockerfile
+- **Source**: https://opencode.ai/
 
 **Test Command**:
 ```bash
-docker run --rm ghcr.io/nam20485/agents-prebuild:main-latest bash -lc "which opencode"
-# Output: (empty, exit code 1)
+docker run --rm ghcr.io/nam20485/agents-prebuild:main-latest bash -lc "npm install -g opencode-ai && which opencode"
+# Output: /usr/bin/opencode (or npm's bin directory)
+
+docker run --rm ghcr.io/nam20485/agents-prebuild:main-latest bash -lc "npm install -g opencode-ai && opencode --version"
+# Output: OpenCode version number
 ```
 
 **Findings**:
-- No standard "opencode" package exists in PyPI, npm, or uv package registries
-- This may be a custom/internal tool or a different package name
-- Implementation will use Claude CLI as primary option with extensibility for future CLI additions
+- OpenCode is available via npm as `opencode-ai` package
+- Installation via: `npm install -g opencode-ai`
+- Alternative methods: curl script, homebrew, paru (Arch Linux)
+- Official site: https://opencode.ai/
+- GitHub: https://github.com/sst/opencode
+- 26K+ GitHub stars, 200K+ monthly users
+
+**CLI Usage**:
+- Interactive mode: `opencode` (launches TUI)
+- Non-interactive mode: `opencode run "prompt text"`
+- Authentication: Stored in `~/.local/share/opencode/auth.json`
+- Supports 75+ LLM providers via Models.dev
 
 ### Helper Binaries
 
@@ -125,14 +137,53 @@ This command writes credentials to `~/.config/anthropic/claude.json` in the foll
 - Tokens should be passed via Docker secrets or environment variables
 - Never commit tokens to version control
 
-### OpenCode CLI Authentication (Future)
+### OpenCode CLI Authentication
 
-**Status**: Deferred until OpenCode CLI installation method is identified
+**Official Documentation**: https://opencode.ai/docs
 
-**Planned Strategy** (when available):
-1. Environment variable: `OPENAI_API_KEY`
-2. Config file: `~/.config/opencode/config.toml`
-3. Non-interactive setup similar to Claude
+**Non-Interactive Setup**:
+```bash
+# Authentication stored at ~/.local/share/opencode/auth.json
+```
+
+Auth file format:
+```json
+{
+  "openai": {
+    "apiKey": "sk-..."
+  },
+  "anthropic": {
+    "apiKey": "sk-ant-..."
+  }
+}
+```
+
+**Environment Variable**: `OPENAI_API_KEY` (or provider-specific variables)
+
+**Implementation Strategy**:
+1. Check if `~/.local/share/opencode/auth.json` exists
+2. If not, check for `OPENAI_API_KEY` environment variable
+3. If present, create auth.json with the API key
+4. If neither exists, fail with clear error message
+
+**Token Management**:
+- Tokens can be obtained from: https://opencode.ai/auth (for OpenCode Zen)
+- Or from your provider (OpenAI, Anthropic, etc.)
+- Supports 75+ LLM providers via Models.dev
+- Tokens should be passed via Docker secrets or environment variables
+- Never commit tokens to version control
+
+**Non-Interactive Usage**:
+```bash
+# Run OpenCode in non-interactive mode
+opencode run "your prompt here"
+
+# With specific model
+opencode run --model openai/gpt-4 "your prompt"
+
+# With agent
+opencode run --agent backend-dev "your prompt"
+```
 
 ## Implementation Decisions
 

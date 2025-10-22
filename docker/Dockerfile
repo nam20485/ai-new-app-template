@@ -18,14 +18,16 @@ WORKDIR /workspace
 COPY --chmod=755 .workflow/prompt.sh /workspace/.workflow/prompt.sh
 COPY . /workspace/
 
-# Create necessary config directories
+    # Install OpenCode CLI via npm
+    # https://opencode.ai/docs
+    # Need to switch to root to install globally
+    USER root
+    RUN npm install -g opencode-ai
+    USER vscode
+    # Create necessary config directories
 RUN mkdir -p \
     /home/vscode/.config/anthropic \
-    /home/vscode/.config/opencode
-
-# Optional: Pre-install OpenCode if it becomes available
-# Uncomment when OpenCode installation method is confirmed
-# RUN uv tool install opencode || echo "OpenCode installation skipped (not available)"
+    /home/vscode/.local/share/opencode
 
 # Set environment defaults
 ENV WORKFLOW_NAME="project-setup-upgraded"

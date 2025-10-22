@@ -132,12 +132,12 @@ EOF
 }
 
 setup_opencode_auth() {
-    local config_dir="$HOME/.config/opencode"
-    local config_file="$config_dir/config.toml"
+    local auth_dir="$HOME/.local/share/opencode"
+    local auth_file="$auth_dir/auth.json"
     
-    # Check if config already exists
-    if [[ -f "$config_file" ]]; then
-        log "INFO" "OpenCode config found at $config_file"
+    # Check if auth already exists
+    if [[ -f "$auth_file" ]]; then
+        log "INFO" "OpenCode auth found at $auth_file"
         return 0
     fi
     
@@ -150,20 +150,26 @@ setup_opencode_auth() {
         else
             log "ERROR" "OPENAI_API_KEY not set and no existing config found"
             log "ERROR" "Please provide API key via environment variable or Docker secret"
+            log "ERROR" "See https://opencode.ai/docs for authentication setup"
             return 1
         fi
     fi
     
-    # Create config directory
-    mkdir -p "$config_dir"
+    # Create auth directory
+    mkdir -p "$auth_dir"
     
-    # Write config file (adjust format based on OpenCode requirements)
-    cat > "$config_file" <<EOF
-api_key = "$OPENAI_API_KEY"
+    # Write auth file in OpenCode format
+    # OpenCode stores credentials at ~/.local/share/opencode/auth.json
+    cat > "$auth_file" <<EOF
+{
+  "openai": {
+    "apiKey": "$OPENAI_API_KEY"
+  }
+}
 EOF
     
-    chmod 600 "$config_file"
-    log "INFO" "Created OpenCode config at $config_file (API key: $(mask_secret "$OPENAI_API_KEY"))"
+    chmod 600 "$auth_file"
+    log "INFO" "Created OpenCode auth at $auth_file (API key: $(mask_secret "$OPENAI_API_KEY"))"
     
     return 0
 }
@@ -233,7 +239,9 @@ main() {
             cli_args="--verbose --permission-mode bypassPermissions"
             ;;
         opencode)
-            cli_args="--prompt"
+            # OpenCode uses 'run' command for non-interactive execution
+            # https://opencode.ai/docs/cli
+            cli_args="run"
             ;;
         *)
             cli_args=""
@@ -246,8 +254,14 @@ main() {
         log "INFO" "Added extra args: $EXTRA_PROMPT_ARGS"
     fi
     
-    # Build prompt
-    prompt="perform the orchestrate-dynamic-workflow with workflow_name = '$WORKFLOW_NAME'"
+    # Build prompt based on client
+    if [[ "$WORKFLOW_CLIENT" == "opencode" ]]; then
+        # OpenCode uses positional arguments for the prompt
+        prompt="perform the orchestrate-dynamic-workflow with workflow_name = '$WORKFLOW_NAME'"
+    else
+        # Claude uses --prompt or direct argument
+        prompt="perform the orchestrate-dynamic-workflow with workflow_name = '$WORKFLOW_NAME'"
+    fi
     
     # Log execution details (mask any secrets in environment)
     log "INFO" "Executing workflow..."
