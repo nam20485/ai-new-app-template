@@ -38,6 +38,10 @@ Select and read based on which client you are.
 - `CLAUDE.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
 - Use the `orchestrator` agent to run dynamic workflows. Have this agent delegate tasks to other agents as needed.
 
+### Opencode.ai rules
+- `opencode-instructions.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
+- Use the `orchestrator` agent to run dynamic workflows. Have this agent delegate tasks to other agents as needed.
+
 ## **IMPORTANT/CRITICAL RULES**
 
 For all clients.
