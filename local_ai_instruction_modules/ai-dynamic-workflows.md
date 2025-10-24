@@ -41,6 +41,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [breakdown-plan](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/breakdown-plan.md`
 
+#### create-epics-for-phase
+
+- shortId: create-epics-for-phase
+
+- GitHub UI: [create-epics-for-phase](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics-for-phase.md)
+- Raw URL:   [create-epics-for-phase](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics-for-phase.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics-for-phase.md`
+
 #### design-app-outline
 
 - shortId: design-app-outline
@@ -80,6 +88,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - GitHub UI: [implement-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-epic.md)
 - Raw URL:   [implement-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-epic.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-epic.md`
+
+#### implement-story
+
+- shortId: implement-story
+
+- GitHub UI: [implement-story](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-story.md)
+- Raw URL:   [implement-story](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-story.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/implement-story.md`
 
 #### new-project
 
