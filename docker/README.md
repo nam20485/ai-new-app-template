@@ -195,7 +195,7 @@ Get API keys: https://console.anthropic.com/
 **Installation**: TBD (installation method not yet identified)  
 **Auth**: `OPENAI_API_KEY` or `~/.config/opencode/config.toml`
 
-The script will automatically fallback to Claude if OpenCode is not available.
+The script will automatically fall back to Claude if OpenCode is not available.
 
 ## Troubleshooting
 

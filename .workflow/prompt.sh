@@ -30,8 +30,11 @@ log_json() {
     local message="$2"
     local timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     local container_id="${HOSTNAME:-unknown}"
-    
-    echo "{\"timestamp\":\"$timestamp\",\"level\":\"$level\",\"message\":\"$message\",\"container\":\"$container_id\",\"workflow\":\"${WORKFLOW_NAME:-unknown}\"}"
+
+    # Escape special characters for JSON
+    local escaped_message=$(echo "$message" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g')
+
+    echo "{\"timestamp\":\"$timestamp\",\"level\":\"$level\",\"message\":\"$escaped_message\",\"container\":\"$container_id\",\"workflow\":\"${WORKFLOW_NAME:-unknown}\"}"
 }
 
 log_text() {
@@ -116,11 +119,7 @@ setup_claude_auth() {
     fi
     
     # Create config directory
-    mkdir -p "$config_dir"
-    
-    # Write config file
-    cat > "$config_file" <<EOF
-{
+    printf '{\n  "api_key": "%s"\n}\n' "$ANTHROPIC_API_KEY" > "$config_file"
   "api_key": "$ANTHROPIC_API_KEY"
 }
 EOF
@@ -279,7 +278,7 @@ main() {
     fi
     
     # Execute the CLI command
-    $WORKFLOW_CLIENT $cli_args "$prompt"
+    $WORKFLOW_CLIENT \"$cli_args\" "$prompt"
     
     local exit_code=$?
     

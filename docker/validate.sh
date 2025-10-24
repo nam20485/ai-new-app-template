@@ -65,8 +65,11 @@ log_result() {
     local duration="$3"
     local details="$4"
     local timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    
-    echo "{\"timestamp\":\"$timestamp\",\"test\":\"$test_name\",\"status\":\"$status\",\"duration\":$duration,\"details\":\"$details\"}" >> "$RESULTS_FILE"
+
+    # Escape special characters for JSON
+    local escaped_details=$(echo "$details" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g')
+
+    echo "{\"timestamp\":\"$timestamp\",\"test\":\"$test_name\",\"status\":\"$status\",\"duration\":$duration,\"details\":\"$escaped_details\"}" >> "$RESULTS_FILE"
 }
 
 run_test() {
@@ -108,7 +111,7 @@ test_build_image() {
     
     if docker build -t "$FULL_IMAGE" -f "$DOCKERFILE" . > "$LOGS_DIR/build.log" 2>&1; then
         local end_time=$(date +%s)
-        local duration=$((end_time - start_time))
+        local image_size=$(docker image inspect "$FULL_IMAGE" --format='{{.Size}}' | awk '{printf "%.1f", $1/1024/1024}')
         
         # Get image details
         local image_size=$(docker image inspect "$FULL_IMAGE" --format='{{.Size}}' | awk '{print $1/1024/1024}')
