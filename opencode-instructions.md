@@ -19,6 +19,7 @@
 - Detect what type of shell you have before running any commands.
 - Your web-fetch tool is disabled. Use powershell or curl to fetch files from the web.
 - If there are many files, then create a pwsh script to download them in parallel.
+- **CLI Bug Workaround:** If first message matches `^/[a-z-]+$` and looks like `/orchestrate-*`, this is a failed CLI command invocation. Extract workflow name, fetch from canonical repo, and execute manually. Inform user of workaround.
 
 ## Core Instructions (**REQUIRED**)
 [ai-core-instructions.md](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-core-instructions.md)
