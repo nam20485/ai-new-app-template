@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+#!/usr/bin/env pwsh-preview
 
 param(
   [string]$Owner = 'nam20485',
