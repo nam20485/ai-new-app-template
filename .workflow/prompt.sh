@@ -271,6 +271,7 @@ main() {
         log "INFO" "DEBUG mode: Would execute: $WORKFLOW_CLIENT $cli_args \"$prompt\""
         log "INFO" "Environment (secrets masked):"
         log "INFO" "  ANTHROPIC_API_KEY=$(mask_secret "${ANTHROPIC_API_KEY:-}")"
+        log "INFO" "  CLAUDE_CODE_OAUTH_TOKEN=$(mask_secret "${CLAUDE_CODE_OAUTH_TOKEN:-}")"
         log "INFO" "  OPENAI_API_KEY=$(mask_secret "${OPENAI_API_KEY:-}")"
         log "INFO" "  WORKFLOW_NAME=$WORKFLOW_NAME"
         log "INFO" "  WORKFLOW_CLIENT=$WORKFLOW_CLIENT"

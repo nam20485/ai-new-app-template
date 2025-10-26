@@ -16,7 +16,7 @@ WORKDIR /workspace
 # Copy workspace files
 # Note: We copy everything except what's in .dockerignore
 COPY . /workspace/
-RUN --chmod=755 .workflow/prompt.sh /workspace/.workflow/prompt.sh
+COPY --chmod=755 .workflow/prompt.sh /workspace/.workflow/prompt.sh
 
 
     # Install OpenCode CLI via npm
