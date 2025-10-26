@@ -49,6 +49,14 @@ Agents MUST resolve dynamic workflows from the remote canonical repository. Do n
 - Raw URL:   [create-epics-for-phase](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics-for-phase.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-epics-for-phase.md`
 
+#### create-stories-for-epic
+
+- shortId: create-stories-for-epic
+
+- GitHub UI: [create-stories-for-epic](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories-for-epic.md)
+- Raw URL:   [create-stories-for-epic](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories-for-epic.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/create-stories-for-epic.md`
+
 #### design-app-outline
 
 - shortId: design-app-outline
