@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+REPO_ROOT="$(git -C "$HOOK_DIR" rev-parse --show-toplevel 2>/dev/null)"
+if [[ -z "${REPO_ROOT}" ]]; then
+  echo "Unable to resolve repository root for TruffleHog pre-commit hook." >&2
+  exit 2
+fi
+
+SCRIPT_PATH="${REPO_ROOT}/scripts/security/run-trufflehog.sh"
+if [[ ! -x "$SCRIPT_PATH" ]]; then
+  echo "TruffleHog helper script not found at $SCRIPT_PATH" >&2
+  exit 2
+fi
+
+echo "Running TruffleHog staged scan..."
+"$SCRIPT_PATH" --staged "$@"

@@ -1,0 +1,20 @@
+# TruffleHog baseline snapshot
+#
+# Record known historical findings here so that the security team can
+# track investigations and remediation decisions. The automation scripts
+# do not consume this file directly; it is a source of truth for manual
+# reviews and future enhancements.
+#
+# Use `scripts/security/run-trufflehog.sh --ci --json-output <path>` to
+# generate a fresh report, review the results with the security team,
+# then update this baseline accordingly.
+
+metadata:
+  created_by: placeholder
+  created_at: TBD
+  notes: >-
+    Replace the metadata fields above when you capture the first official
+    baseline. Keep entries sorted by detector type or file path for easy
+    review.
+
+findings: []
