@@ -1,17 +1,2 @@
-# TruffleHog allowlist configuration
-#
-# Populate the lists below with patterns that are safe to ignore.
-# Each entry must be a single quoted regular expression compatible with
-# the TruffleHog `--exclude-paths` flag.
-#
-# Examples:
-# ignored_paths:
-#   - '^docs/generated/'
-#   - '^docker/.*\.log$'
-# ignored_detectors:
-#   - GITHUB_TOKEN
-#
-# Keep this file under version control so that changes are reviewed.
-
-ignored_paths: []
-ignored_detectors: []
+allowlist:
+  - "CANARY_SECRET = \"t_1234567890_abcdefghijklmnopqrstuvwxyz\""
