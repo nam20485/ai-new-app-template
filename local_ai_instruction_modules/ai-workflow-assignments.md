@@ -49,6 +49,14 @@ Agents MUST resolve workflow assignments (by shortId) from the remote canonical 
 - Raw URL:   [continue-task-work](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/continue-task-work.md)
 - Canonical file: `ai_instruction_modules/ai-workflow-assignments/continue-task-work.md`
 
+#### continuous-improvement
+
+- shortId: continuous-improvement
+
+- GitHub UI: [continuous-improvement](https://github.com/nam20485/agent-instructions/blob/main/ai_instruction_modules/ai-workflow-assignments/continuous-improvement.md)
+- Raw URL:   [continuous-improvement](https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-workflow-assignments/continuous-improvement.md)
+- Canonical file: `ai_instruction_modules/ai-workflow-assignments/continuous-improvement.md`
+
 #### create-app-from-plan-issue (unguided)
 
 - shortId: create-app-from-plan-issue (unguided)
