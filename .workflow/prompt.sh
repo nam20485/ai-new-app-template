@@ -120,9 +120,6 @@ setup_claude_auth() {
     
     # Create config directory
     printf '{\n  "api_key": "%s"\n}\n' "$ANTHROPIC_API_KEY" > "$config_file"
-  "api_key": "$ANTHROPIC_API_KEY"
-}
-EOF
     
     chmod 600 "$config_file"
     log "INFO" "Created Claude config at $config_file (API key: $(mask_secret "$ANTHROPIC_API_KEY"))"
@@ -235,7 +232,7 @@ main() {
     # Build CLI arguments based on client
     case "$WORKFLOW_CLIENT" in
         claude)
-            cli_args="--verbose --permission-mode bypassPermissions"
+            cli_args="--verbose --dangerously-skip-permissions "
             ;;
         opencode)
             # OpenCode uses 'run' command for non-interactive execution
