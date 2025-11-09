@@ -10,22 +10,28 @@ LABEL org.opencontainers.image.description="Containerized AI workflow orchestrat
 LABEL org.opencontainers.image.version="1.0.0"
 LABEL org.opencontainers.image.authors="nam20485"
 
+USER root
+
 # Set working directory
-WORKDIR /workspace
+RUN mkdir /workspace
 
 # Copy workspace files
 # Note: We copy everything except what's in .dockerignore
 COPY . /workspace/
-RUN --chmod=755 .workflow/prompt.sh /workspace/.workflow/prompt.sh
 
+RUN ls -la /workspace/.workflow/
 
-    # Install OpenCode CLI via npm
-    # https://opencode.ai/docs
-    # Need to switch to root to install globally
-    USER root
-    RUN npm install -g opencode-ai
-    USER vscode
-    # Create necessary config directories
+# Make prompt script executable (if it exists)
+RUN chmod +x /workspace/.workflow/prompt.sh
+
+# Install OpenCode CLI via npm
+# https://opencode.ai/docs
+# Need to switch to root to install globally
+USER root
+RUN npm install -g opencode-ai
+USER vscode
+
+# Create necessary config directories
 RUN mkdir -p \
     /home/vscode/.config/anthropic \
     /home/vscode/.local/share/opencode
