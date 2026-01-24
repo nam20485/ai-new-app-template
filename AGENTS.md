@@ -1,45 +1,113 @@
-# AGENTS.md
+---
+description: Entry point for AGENTS custom instructions
+scope: global
+role: System Orchestrator
+---
 
-## MCP Tools (MANDATORY for ALL agents)
+<instructions>
+  <overview>
+    This file serves as the bootstrap entry point for the AI agent's instruction set.
+    It defines the location of core modules, the protocol for loading remote instructions, and the single source of truth policy.
+  </overview>
 
-- **Sequential Thinking**: ALWAYS use `mcp_sequential_thinking_*` for planning, breaking down tasks, and analyzing dependencies.
-- **Memory**: ALWAYS use `mcp_memory_*` for context storage, state management, and caching patterns/conventions.
-- **Gemini**: USE `mcp_gemini_*` for large codebase analysis (1M token context), conserve Claude's context window
-- **Required MCP Servers**: filesystem, github, sequential-thinking, memory, gemini-cli MUST be configured
+  <configuration>
+    <!-- BRANCH PARAMETER: Change this value to load instructions from a different branch -->
+    <!-- Valid values: main, optimization, feature/*, or any valid branch name -->
+    <branch>optimization</branch>
+  </configuration>
 
-## Build/Lint/Test
+  <instruction_source>
+    <repository>
+      <name>nam20485/agent-instructions</name>
+      <url>https://github.com/nam20485/agent-instructions/tree/{branch}</url>
+      <branch>{branch}</branch>
+    </repository>
+    <guidance>
+      Start with the Core Instructions linked below. Follow links to other modules as required by the user's request.
+      All remote URLs use the branch specified in the configuration section above.
+    </guidance>
+  </instruction_source>
 
-- Orchestration: use your agent to orchestrate workflows per remote instructions (Claude agents only)
-- Tests (.NET): `dotnet test` | single `dotnet test --filter "FullyQualifiedName~TestName"`
+  <module_registry>
+    <module type="core" required="true">
+      <name>Core Instructions</name>
+      <link>https://github.com/nam20485/agent-instructions/blob/{branch}/ai_instruction_modules/ai-core-instructions.md</link>
+      <description>The foundational behaviors and rules for the agent.</description>
+    </module>
 
-## Coding Style
-- Formatting: Prettier/EditorConfig/trunk if present; target ~100 cols
-- Naming: kebab-case files; PascalCase types/classes; camelCase vars/functions; CONSTANT_CASE constants
-- Errors: fail fast; never swallow; wrap async with try/catch; surface exit codes
-- Git: small focused commits; no secrets; never change git config
+    <module type="local" required="true">
+      <name>Local AI Instructions</name>
+      <path>../local_ai_instruction_modules</path>
+      <description>Context-specific instructions located in the local workspace.</description>
+    </module>
 
-## Agent-Instructions & Workflows
-- SSOT: use `nam20485/agent-instructions@main` via RAW URLs; see `local_ai_instruction_modules/*` indices
-- Dynamic workflows: resolve by shortId from remote RAW files and orchestrate via your agent (no local script)
-- Assignments: resolve by shortId from `ai-workflow-assignments.md`; follow acceptance criteria verbatim
-- Tool priority: Sequential Thinking → Memory → Gemini (for large contexts) → MCP GitHub tools → VS Code → `gh` CLI; avoid GitHub web UI; scripts `./scripts/*.ps1`; .NET SDK via `global.json` (9.0.102)
+    <module type="dynamic workflow" required="true">
+      <name>Dynamic Workflow Orchestration</name>
+      <path>../local_ai_instruction_modules/ai-dynamic-workflows.md</path>
+      <description>Protocol for resolving workflows from the remote canonical repository.</description>
+    </module>
 
-## Client-specific Rules
+    <module type="workflow assignment" required="true">
+      <name>Workflow Assignments</name>
+      <path>../local_ai_instruction_modules/ai-workflow-assignments.md</path>
+      <description>Index of active workflow assignments by shortId.</description>
+    </module>
 
-Select and read based on which client you are.
+    <module type="optional">
+      <name>Terminal Commands</name>
+      <path>../local_ai_instruction_modules/ai-terminal-commands.md</path>
+      <description>Reference for terminal operations and GitHub CLI usage.</description>
+    </module>
+  </module_registry>
 
-### Copilot Rules
-- `.github/copilot-instructions.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
+  <loading_protocol>
+    <rule id="branch_resolution">
+      <description>Resolving the active branch</description>
+      <instruction>
+        Read the branch value from the configuration section at the top of this file.
+        Replace all `{branch}` placeholders in URLs with this value.
+        Default: `main` if not specified.
+      </instruction>
+    </rule>
 
-### Gemini rules
-- `.gemini/GEMINI.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
+    <rule id="remote_access">
+      <description>Accessing files in the remote repository</description>
+      <instruction>
+        Always use the RAW URL to read file contents. Do not use the GitHub UI URL.
+      </instruction>
+    </rule>
 
-### Claude Code rules
-- `CLAUDE.md` (shell detect, RAW URLs, automation-first, web-fetch disabled → use `Invoke-WebRequest`/`curl`)
-- Use the `orchestrator` agent to run dynamic workflows. Have this agent delegate tasks to other agents as needed.
+    <algorithm name="url_translation">
+      <step>Read the configured branch from `<configuration><branch>`.</step>
+      <step>Identify the GitHub UI URL (e.g., `https://github.com/.../blob/{branch}/...`).</step>
+      <step>Replace `https://github.com/` with `https://raw.githubusercontent.com/`.</step>
+      <step>Remove `blob/` from the path.</step>
+      <step>Substitute `{branch}` with the configured branch value.</step>
+      <step>Result: `https://raw.githubusercontent.com/.../{branch}/...`</step>
+    </algorithm>
 
-## **IMPORTANT/CRITICAL RULES**
+    <examples>
+      <example title="Default (main branch)">
+        <config_branch>main</config_branch>
+        <input>https://github.com/nam20485/agent-instructions/blob/{branch}/ai_instruction_modules/ai-core-instructions.md</input>
+        <output>https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md</output>
+      </example>
+      <example title="Optimization branch">
+        <config_branch>optimization</config_branch>
+        <input>https://github.com/nam20485/agent-instructions/blob/{branch}/ai_instruction_modules/ai-core-instructions.md</input>
+        <output>https://raw.githubusercontent.com/nam20485/agent-instructions/optimization/ai_instruction_modules/ai-core-instructions.md</output>
+      </example>
+    </examples>
+  </loading_protocol>
 
-For all clients.
-
-**CRITICAL**: All agents MUST use Sequential Thinking for task planning, Memory for state management, and Gemini for large-scale code analysis.
+  <policy name="single_source_of_truth">
+    <statement>
+      The remote canonical repository is the ONLY authoritative source for dynamic workflows and workflow assignments.
+    </statement>
+    <rules>
+      <rule>Do not use local mirrors or cached plans to derive steps.</rule>
+      <rule>Fetch and execute directly from the remote canonical URLs.</rule>
+      <rule>Changes in the remote repo take effect immediately.</rule>
+    </rules>
+  </policy>
+</instructions>

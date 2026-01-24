@@ -1,5 +1,5 @@
 ---
-description: Entry point for Claude Code custom instructions
+description: Entry point for OpenCode.ai custom instructions
 scope: global
 role: System Orchestrator
 ---
