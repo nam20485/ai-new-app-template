@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 # Ensures NVM for Windows is available in the current session, then runs the upstream setup script.
 # All installation logic happens inside this script to comply with the self-contained requirement.
 
@@ -12,8 +14,8 @@ function Test-Command { param([Parameter(Mandatory)][string]$Name) try { Get-Com
 
 function Set-NvmOnPath {
   # Read machine-scoped env that installers commonly set
-  $machineNvmHome = [Environment]::GetEnvironmentVariable('NVM_HOME','Machine')
-  $machineNvmSymlink = [Environment]::GetEnvironmentVariable('NVM_SYMLINK','Machine')
+  $machineNvmHome = [Environment]::GetEnvironmentVariable('NVM_HOME', 'Machine')
+  $machineNvmSymlink = [Environment]::GetEnvironmentVariable('NVM_SYMLINK', 'Machine')
   if ($machineNvmHome -and -not $env:NVM_HOME) { $env:NVM_HOME = $machineNvmHome }
   if ($machineNvmSymlink -and -not $env:NVM_SYMLINK) { $env:NVM_SYMLINK = $machineNvmSymlink }
 
@@ -100,7 +102,7 @@ if (-not (Set-NvmOnPath)) {
     if (Test-Path $p) {
       $exe = $p
       if ($exe.EndsWith('.ignore')) {
-        $real = $exe -replace '\\.ignore$',''
+        $real = $exe -replace '\\.ignore$', ''
         try { Copy-Item -Path $exe -Destination $real -Force } catch {}
         if (Test-Path $real) { $exe = $real }
       }

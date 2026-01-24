@@ -418,3 +418,8 @@ FodyWeavers.xsd
 *.msp
 
 gha-creds-*.json
+
+# Docker validation artifacts
+docker/validation/logs/
+docker/validation/results.jsonl
+docker/.env
