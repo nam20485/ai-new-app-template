@@ -66,7 +66,7 @@ role: System Orchestrator
       <instruction>
         Read the branch value from the configuration section at the top of this file.
         Replace all `{branch}` placeholders in URLs with this value.
-        Default: `main` if not specified.
+        Default: use the configured `<branch>` value; if missing, use the repository default branch.
       </instruction>
     </rule>
 
@@ -87,10 +87,10 @@ role: System Orchestrator
     </algorithm>
 
     <examples>
-      <example title="Default (main branch)">
-        <config_branch>main</config_branch>
+      <example title="Default (configured branch)">
+        <config_branch>{branch}</config_branch>
         <input>https://github.com/nam20485/agent-instructions/blob/{branch}/ai_instruction_modules/ai-core-instructions.md</input>
-        <output>https://raw.githubusercontent.com/nam20485/agent-instructions/main/ai_instruction_modules/ai-core-instructions.md</output>
+        <output>https://raw.githubusercontent.com/nam20485/agent-instructions/{branch}/ai_instruction_modules/ai-core-instructions.md</output>
       </example>
       <example title="Optimization branch">
         <config_branch>optimization</config_branch>

@@ -109,7 +109,7 @@ This repository is a **template for AI-assisted application development** that e
 
 ## Development Environment Requirements
 
-- **. NET SDK**: 9.0.102 (pinned in `global.json`) 
+- **. NET SDK**: 10.0.100 (pinned in `global.json`)
 - **PowerShell**: 7+ required for cross-platform script execution
 
 ## Critical Development Rules
@@ -117,7 +117,7 @@ This repository is a **template for AI-assisted application development** that e
 1. **Shell Detection**: Always check if you're in PowerShell vs bash before running commands
 2. **Automation Coverage**: Achieve 90%+ automation for all GitHub operations or document tool limitations
 3. **Remote Authority**: Only use remote canonical repository files for workflow definitions
-4. **Tool Priority**: Use MCP GitHub tools first, terminal `gh` commands only as documented last resort
+4. **Tool Priority**: Use MCP GitHub tools first, terminal `gh` commands only as documented last resort, GH REST and graphql API can also be used.
 5. **Sequential Thinking**: MUST use Sequential Thinking MCP tool for ALL multi-step tasks and complex problem solving
 6. **Memory Management**: MUST use Memory MCP tool to maintain context and state across workflow stages
 <!-- 7. **Context Conservation**: USE Gemini MCP tool (1M token context) when reading large codebases or extensive documentation to preserve Claude's context -->

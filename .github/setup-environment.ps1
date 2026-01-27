@@ -5,7 +5,7 @@ Windows environment setup (canonical)
 - Optional npm pin via NPM_VERSION_PIN
 - Corepack enable (pnpm/yarn)
 - Installs: Git, Python3, Google Cloud CLI, GitHub CLI, Terraform, Ansible (pip), global npm CLIs (firebase, angular, CRA, typescript, eslint, prettier, cdktf)
-- .NET 9 SDK workloads (wasm-tools, aspire) & Aspire templates (user-local)
+- .NET 10 SDK workloads (wasm-tools, aspire) & Aspire templates (user-local)
 Note: Some installers may require admin rights (winget/choco).
 !#>
 
@@ -25,8 +25,8 @@ $TERRAFORM = '1.6.15'
 $ANSIBLE = '8.9.0'
 $FIREBASE_TOOLS = '11.11.0'
 $CDKTF = '0.16.0'
-$DOTNET_VERSION_PIN = '9.0.102'
-$DOTNET_CHANNEL = '9.0'
+$DOTNET_VERSION_PIN = '10.0.100'
+$DOTNET_CHANNEL = '10.0'
 $DOTNET_QUALITY = ''
 
 Set-StrictMode -Version Latest
@@ -295,16 +295,16 @@ function Install-Ansible {
 }
 
 # -----------------------------------------------------------------------------
-# .NET 9 SDK (user-local) & workloads
+# .NET 10 SDK (user-local) & workloads
 # -----------------------------------------------------------------------------
-function Install-DotNet9 {
+function Install-DotNet10 {
     $dotnetVersion = $null
     try { $dotnetVersion = (dotnet --version) } catch {}
-    if (-not ($dotnetVersion -like '9.*')) {
-        Write-Host '[dotnet] Installing .NET 9 SDK (user-local)'
+    if (-not ($dotnetVersion -like '10.*')) {
+        Write-Host '[dotnet] Installing .NET 10 SDK (user-local)'
         $installer = Join-Path $env:TEMP 'dotnet-install.ps1'
         Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -OutFile $installer
-        & powershell -ExecutionPolicy Bypass -File $installer -Channel 9.0 -InstallDir "$env:USERPROFILE\.dotnet" -NoPath | Out-Null
+        & powershell -ExecutionPolicy Bypass -File $installer -Channel 10.0 -InstallDir "$env:USERPROFILE\.dotnet" -NoPath | Out-Null
         $env:PATH = "$env:USERPROFILE\.dotnet;$env:PATH"
     }
     if (Test-Command dotnet) {
@@ -336,7 +336,7 @@ try {
         if (Test-IsTrue $env:SETUP_MINIMAL) { Write-Host 'SETUP_MINIMAL: Skipping Terraform install' } else { Install-Terraform }
         if (Test-IsTrue $env:SETUP_MINIMAL) { Write-Host 'SETUP_MINIMAL: Skipping Ansible install' } else { Install-Ansible }
     if (Test-IsTrue $env:SETUP_MINIMAL) { Write-Host 'SETUP_MINIMAL: Skipping global npm CLI tool installs' } else { Install-GlobalNpmCLIs }
-        Install-DotNet9
+        Install-DotNet10
 
     Write-Host '\nEnvironment summary:' -ForegroundColor Cyan
     Write-Host ('- .NET SDK: ' + ($(Get-Command dotnet -ErrorAction SilentlyContinue) ? (dotnet --version) : 'Not Installed'))
