@@ -1,3 +1,29 @@
+# create-memory-bank-instructions.md
+
+## Description
+
+Create the memory bank `memory-bank-instructions.md` file and fill in its content based on the content included below in the content section (File Content)
+
+Location: <.kilocode\rules\memory-bank-instructions.md>
+
+## Prompt
+
+Create the memory bank instructions file with the content based on the content included below in the content section (File Content)
+
+## Steps
+
+1. Create the new file at the location specified above.
+2. Use the prompt above to instruct the agent to fill in the content of the new file.
+
+## Reference
+
+* Setting up Memory Bank <https://kilo.ai/docs/customize/context/memory-bank#first-time-setup>
+* Memory Bank <https://kilo.ai/docs/customize/context/memory-bank#how-memory-bank-works>
+* Creating Memory Bank <https://kilo.ai/docs/customize/context/memory-bank#getting-started-with-memory-bank>
+
+## File Content
+
+```
 Memory Bank
 I am an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional. The memory bank files are located in .kilocode/rules/memory-bank folder.
 
@@ -174,3 +200,5 @@ REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is
 If I detect inconsistencies between memory bank files, I should prioritize brief.md and note any discrepancies to the user.
 
 IMPORTANT: I MUST read ALL memory bank files at the start of EVERY task - this is not optional. The memory bank files are located in .kilocode/rules/memory-bank folder.
+
+```
