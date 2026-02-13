@@ -11,8 +11,8 @@ on:
     types: [opened, synchronize, reopened]
   pull_request_review:
     types: [submitted, edited]
-  workflow_run:
-    types: [completed, requested]
+  # workflow_run:
+  #   types: [completed, requested]
 
 jobs:
   opencode:
