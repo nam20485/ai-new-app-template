@@ -14,6 +14,7 @@ initialize memory bank
 
 0. Read the Reference links below to understand the process of initializing the memory bank.
 1. /create-memory-bank-brief
+2. /create-memory-bank-instructions
 2. Switch to Architect mode.
 3. Prompt the agent with the prompt from ##Prompt section.
 
