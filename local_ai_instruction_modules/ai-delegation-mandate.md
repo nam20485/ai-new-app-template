@@ -147,7 +147,11 @@ Target Threshold: ≥90%
 
 ### Enhanced Acceptance Criteria
 
-Add to existing acceptance criteria: 8. **Delegation Coverage**: Minimum 75% of tasks delegated to specialist agents 9. **Agent Utilization**: At least 2 different agent types used per assignment 10. **Coordination Quality**: Evidence of successful agent coordination and integration
+Add to existing acceptance criteria:
+
+8. **Delegation Coverage**: Minimum 75% of tasks delegated to specialist agents
+9. **Agent Utilization**: At least 2 different agent types used per assignment
+10. **Coordination Quality**: Evidence of successful agent coordination and integration
 
 ### Enhanced Run Report Schema
 

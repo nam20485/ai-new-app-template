@@ -245,13 +245,14 @@ role: System Orchestrator
 
     <verification_commands>
       <context>
-        This is a .NET 10 / C# solution (see plan_docs/New Application Spec_ ConvoContentBuddy.md).
-        Run all applicable commands below before completing any implementation task.
+        This is a .NET 10 / C# template repository.
+        Replace {SolutionName} below with the actual .sln file name for the target project.
+        Run all applicable commands before completing any implementation task.
       </context>
 
       <command id="build" name="Build (.NET Solution)">
         <description>Compiles the entire solution and surfaces all compiler errors and Roslyn analyzer diagnostics.</description>
-        <run>dotnet build ConvoContentBuddy.sln -warnaserror</run>
+        <run>dotnet build {SolutionName}.sln -warnaserror</run>
         <guidance>
           The -warnaserror flag promotes all Roslyn analyzer warnings to errors.
           Fix all warnings — do not suppress them unless explicitly authorized.
@@ -260,16 +261,16 @@ role: System Orchestrator
 
       <command id="static_analysis" name="Static Analysis (dotnet format)">
         <description>Enforces C# code style and formatting rules across all projects.</description>
-        <run>dotnet format ConvoContentBuddy.sln --verify-no-changes</run>
+        <run>dotnet format {SolutionName}.sln --verify-no-changes</run>
         <guidance>
-          If this reports violations, run `dotnet format ConvoContentBuddy.sln` (without --verify-no-changes)
+          If this reports violations, run `dotnet format {SolutionName}.sln` (without --verify-no-changes)
           to auto-fix them, then re-verify.
         </guidance>
       </command>
 
       <command id="unit_tests" name="Unit Tests">
         <description>Runs all xUnit test projects in the solution.</description>
-        <run>dotnet test ConvoContentBuddy.sln --no-build</run>
+        <run>dotnet test {SolutionName}.sln --no-build</run>
         <guidance>
           Pass --no-build after a successful dotnet build to avoid redundant compilation.
           All tests must pass — investigate and fix any failures before proceeding.
@@ -299,9 +300,9 @@ role: System Orchestrator
       <!--
         | Check                  | Command                                                      | Lane                | When to run              |
         |========================|==============================================================|=====================|==========================|
-        | Build + Roslyn analysis| dotnet build ConvoContentBuddy.sln -warnaserror              | fast_readiness      | Every task               |
-        | Code style (C#)        | dotnet format ConvoContentBuddy.sln --verify-no-changes      | fast_readiness      | Every task               |
-        | Unit tests             | dotnet test ConvoContentBuddy.sln --no-build                 | fast_readiness      | Every task               |
+        | Build + Roslyn analysis| dotnet build {SolutionName}.sln -warnaserror                 | fast_readiness      | Every task               |
+        | Code style (C#)        | dotnet format {SolutionName}.sln --verify-no-changes         | fast_readiness      | Every task               |
+        | Unit tests             | dotnet test {SolutionName}.sln --no-build                    | fast_readiness      | Every task               |
         | Polyglot lint (Trunk)  | trunk check                                                  | fast_readiness      | Every task               |
         | Security scan (Trunk)  | trunk check --all --filter=trufflehog,osv-scanner,checkov,...| extended_validation | When explicitly required |
         | Integration tests      | (add when Aspire test projects exist)                        | extended_validation | When explicitly required |
