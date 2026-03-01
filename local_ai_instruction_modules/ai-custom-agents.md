@@ -1,50 +1,56 @@
 # LLM Client Subagents
 
-This project defines a minimal set of LLM client subagents to support targeted delegation and automation-first workflows on Windows (PowerShell/pwsh). These subagents can be used by any compatible client (e.g., OpenCode, GitHub Copilot, Gemini, Qwen, Factory Droid, Kilo Codex, Traycer).
+This project uses a shared set of 25 specialist subagents for targeted delegation and automation-first workflows. The same agent names and roles are deployed across all compatible LLM coding clients.
 
-- Project agents live under `.claude/agents/`.
-- Format: Markdown with YAML frontmatter (see files for examples).
-- Shell defaults: Windows, prefer PowerShell (pwsh). Avoid bash-only commands.
-- Research tasks should be delegated to the Researcher (uses the configured research tooling).
+## Source and Deployment
 
-Quick start:
+The canonical agent definitions originate from Claude Code format in `nam20485/accp-generator/.source/agents/`. They are converted to each client's native format and deployed user-wide. Conversion reports live in `accp-generator/.source/reports/`.
 
-1) In VS Code with your LLM client enabled, open the Agents panel (e.g., `/agents` if supported).
-2) The project-level agents will appear; select and use them in chats.
-3) Use the Orchestrator to plan, delegate to specialized agents, and approve work.
+### Client Deployment Locations
 
-Primary references:
+| Client                 | Format                                           | Location                                   |
+| ---------------------- | ------------------------------------------------ | ------------------------------------------ |
+| VS Code GitHub Copilot | `.agent.md`                                      | `%APPDATA%/Code - Insiders/User/agents/`   |
+| Kilo Code              | `custom_modes.yaml` + per-mode `instructions.md` | `~/.kilo/`                                 |
+| Codex CLI              | `.prompt.md` + `SKILL.md`                        | `~/.codex/prompts/` and `~/.codex/skills/` |
+| OpenCode               | References `AGENTS.md`                           | `opencode.json` in project root            |
 
-- `scripts/agent-creation-rules.md` (authoring guide)
-- [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions) (canonical instruction modules)
+Agent names and roles are consistent across all clients. Each client resolves agents from its own location, but the canonical role definitions are listed below.
 
----
+## Usage
 
-## Agent index
+1. Open your LLM client's agent panel (e.g., `@agent-name` in Copilot, `/agents` in others).
+2. Select the appropriate specialist agent for the task.
+3. Use the **orchestrator** to plan, delegate to specialists, and approve work.
+4. Delegate research tasks to the **researcher** agent.
 
-Core
+## Agent Index
+
+### Core
 
 - orchestrator — Plans, delegates, approves; avoids direct implementation.
-- researcher — Uses the configured research tooling to produce citation-rich briefs.
+- researcher — Uses configured research tooling to produce citation-rich briefs.
 - code-reviewer — Reviews diffs for correctness, security, performance, and style.
+- dev-team-lead — Coordinates development across multiple agents and tracks progress.
 
-Build & Quality
+### Build & Quality
 
 - qa-test-engineer — Designs and runs tests; validates green builds.
 - devops-engineer — CI/CD, reproducible builds, observability basics.
 - frontend-developer — UI components/pages with component tests.
 - backend-developer — Endpoints/modules with unit/integration tests.
 
-Planning
+### Planning
 
 - planner — Breaks work into tasks with acceptance criteria.
 - product-manager — Defines goals, constraints, acceptance criteria.
 - scrum-master — Facilitates cadence; removes blockers; enforces DoD.
 
-Specialized
+### Specialized
 
 - cloud-infra-expert — Cloud architecture, IaC patterns, security baselines.
-- github_ops_expert — Manages GitHub configuration, automation, and policy enforcement.
+- github-expert — GitHub platform features, APIs, and integrations.
+- github-ops-agent — Manages GitHub configuration, automation, and policy enforcement.
 - performance-optimizer — Profiles and enforces performance budgets.
 - security-expert — Threat modeling, secrets hygiene, dependency risk.
 - database-admin — Schema/migrations, performance, backup/restore.
@@ -56,3 +62,8 @@ Specialized
 - developer — Generalist for small, scoped tasks.
 - documentation-expert — Writes developer and user docs, quickstarts, and runbooks.
 - prompt-engineer — System prompts, tool routing, guardrails.
+
+## References
+
+- [nam20485/accp-generator](https://github.com/nam20485/accp-generator) — canonical source agents and conversion reports
+- [nam20485/agent-instructions](https://github.com/nam20485/agent-instructions) — canonical instruction modules
