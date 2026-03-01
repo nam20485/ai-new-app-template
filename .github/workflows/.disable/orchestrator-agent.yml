@@ -31,6 +31,8 @@ jobs:
       - name: Load orchestrator prompt
         id: load-prompt
         shell: bash
+        env:
+          EVENT_JSON: ${{ toJson(github.event) }}
         run: |
           {
             echo 'prompt<<EOF'
@@ -45,7 +47,7 @@ jobs:
             echo "SHA: ${{ github.sha }}"
             echo ""
             echo "--- FULL EVENT DATA ---"
-            echo "${{ toJson(github.event) }}"
+            echo "$EVENT_JSON"
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
