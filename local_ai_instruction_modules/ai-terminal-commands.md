@@ -1,15 +1,19 @@
-# Terminal Commands Cheat Sheet (pwsh-first)
+# Terminal Commands Cheat Sheet
 
-- Default shell: PowerShell (pwsh). Detect before running commands.
-- Web fetch: Use PowerShell Invoke-WebRequest (or curl) — web-fetch tool is disabled.
-- Prefer automation via MCP tools, terminal commands next, then GitHub API calls last.
+Default shell: **bash** (WSL Ubuntu 24.04). PowerShell (pwsh) is also frequently used.
+Detect before running commands: `echo $0` (bash) or `$PSVersionTable` (pwsh).
+
+## Bash basics
+
+- Download raw file: `curl -sL <raw-url> -o <path>`
+- JSON: `cat file.json | jq .`
+- Current shell: `echo $SHELL` or `echo $0`
 
 ## PowerShell basics
 
-- Current shell: `$PSVersionTable.PSEdition`, `$PSVersionTable.PSVersion`
 - Download raw file: `Invoke-WebRequest -Uri <raw-url> -OutFile <path>`
-- Parallel downloads: `ForEach-Object -Parallel` (PowerShell 7+)
 - JSON: `Get-Content -Raw file.json | ConvertFrom-Json`
+- Current shell: `$PSVersionTable.PSEdition`
 
 ## GitHub CLI (gh)
 
@@ -18,34 +22,44 @@
 - View: `gh repo view owner/name -w`
 - Issues: `gh issue create -t "Title" -b "Body"`
 - Subissue: `gh issue create --title "Subissue Title" --body "Details" --parent 123`
-- PR: `gh pr create --title "Title" --body "Body" --base
+- PR: `gh pr create --title "Title" --body "Body" --base main`
 
 ## Git
 
 - Clone: `git clone https://github.com/owner/name.git`
 - Branch: `git checkout -B main`
-- Commit: `git add -A; git commit -m "msg"; git push -u origin main`
+- Commit: `git add -A && git commit -m "msg" && git push -u origin main`
+
+## Running PowerShell scripts from bash
+
+```bash
+pwsh ./scripts/import-labels.ps1
+pwsh ./scripts/create-milestones.ps1
+```
 
 ## Safety
 
-- Use `-WhatIf`/`-Confirm` for destructive cmdlets.
-- Quote paths with `-LiteralPath` and use `Join-Path`.
+- bash: use `set -e` for strict error handling; quote variables (`"$var"`)
+- pwsh: use `-WhatIf`/`-Confirm` for destructive cmdlets; use `-LiteralPath` and `Join-Path`
 
-## Terminal/CLI Command/arguments Errors
+## Terminal/CLI Error Handling
 
-- Check error code of last command: `$LASTEXITCODE`
-- If failed, **BEFORE TRYING AGAIN:**
-  - Check error message, and its context, for hints.
-  - Verify command syntax with `--help` or `Get-Help`.
-  - Inspect --help usage synatx and examples, and create a correct command based on thinking the usage through carefully.
-  - If the command is complex, break it down into smaller parts and test each part before combining them.
-  - If it still fails, search web for the error message and context to find solutions.
-- DO NOT KEEP TRYING THE SAME COMMAND WITHOUT UNDERSTANDING THE ISSUE.
-  - When you get an error, use the above steps to diagnose and fix it **BEFORE** retrying.
-  - DO NOT just keep retrying UNLESS you know what the exact problem is and have fixed it, or are attempting fixes based on understanding the issue.
-  - If you can't figure it out within three (3) tries, search the internet for documentation and/or solutions to the problem you are encountering.
+- Check last exit code: `$?` (bash) or `$LASTEXITCODE` (pwsh)
+- If a command fails, **BEFORE retrying:**
+  - Read the error message and its context for hints
+  - Verify command syntax with `--help` or `Get-Help`
+  - Inspect usage syntax and examples; construct a correct command based on careful analysis
+  - If the command is complex, break it into smaller parts and test each one
+  - If it still fails, search the web for the error message to find solutions
+- **DO NOT keep retrying the same command without understanding the issue.**
+  - Diagnose and fix the problem **before** retrying
+  - If you can't resolve it within 3 tries, search for documentation and/or solutions
+- Once a working command is found, document it in the Examples section below with a short description
 
-Finally, once you have a working command, document it clearly for future reference in this document in the ##Examples section with a short description of what it does, and what problems you encountered before getting it to work.
+## Examples
+
+<!-- Add working commands here with notes on what problems were encountered. -->
 
 ---
-This file exists to satisfy local docs linking and to standardize terminal usage when automation tools are unavailable.
+
+This file standardizes terminal usage when automation tools are unavailable.
