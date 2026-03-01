@@ -208,92 +208,128 @@ role: System Orchestrator
       </guidance>
     </instruction>
   </tool_use_instructions>
+
+  <agent_readiness>
+    <!-- Reference: https://docs.factory.ai/cli/user-guides/become-a-power-user#agent-readiness-—-let-your-tools-do-the-teaching -->
+    <overview>
+      Agent Readiness makes this project self-correcting. You must run the same verification commands that CI runs.
+      If they pass locally, they pass in CI. If something is broken, you find out immediately and fix it before the task is complete.
+    </overview>
+
+    <verification_protocol>
+      <description>
+        For any non-trivial code change, this protocol is mandatory and must be completed before marking any task complete.
+        Treat this as a hard gate, not optional guidance.
+      </description>
+      <non_trivial_threshold>
+        Logic changes, behavior changes, refactors, dependency updates, configuration changes that affect
+        runtime/build/test behavior, and any multi-file edits.
+      </non_trivial_threshold>
+      <steps>
+        <step>Run the full verification suite (all commands in the reference table below).</step>
+        <step>Fix every failure — do not skip, suppress, or work around errors.</step>
+        <step>Re-run the failing check after each fix to confirm it is resolved.</step>
+        <step>Repeat until all checks pass cleanly.</step>
+      </steps>
+      <priority>
+        Prioritize fast checks. Run the build and unit tests as your standard pre-completion gate.
+        Only run slow integration or end-to-end tests when explicitly required by the task.
+      </priority>
+    </verification_protocol>
+
+    <verification_commands>
+      <context>
+        This is a .NET 10 / C# solution (see plan_docs/New Application Spec_ ConvoContentBuddy.md).
+        Run all applicable commands below before completing any implementation task.
+      </context>
+
+      <command id="build" name="Build (.NET Solution)">
+        <description>Compiles the entire solution and surfaces all compiler errors and Roslyn analyzer diagnostics.</description>
+        <run>dotnet build ConvoContentBuddy.sln -warnaserror</run>
+        <guidance>
+          The -warnaserror flag promotes all Roslyn analyzer warnings to errors.
+          Fix all warnings — do not suppress them unless explicitly authorized.
+        </guidance>
+      </command>
+
+      <command id="static_analysis" name="Static Analysis (dotnet format)">
+        <description>Enforces C# code style and formatting rules across all projects.</description>
+        <run>dotnet format ConvoContentBuddy.sln --verify-no-changes</run>
+        <guidance>
+          If this reports violations, run `dotnet format ConvoContentBuddy.sln` (without --verify-no-changes)
+          to auto-fix them, then re-verify.
+        </guidance>
+      </command>
+
+      <command id="unit_tests" name="Unit Tests">
+        <description>Runs all xUnit test projects in the solution.</description>
+        <run>dotnet test ConvoContentBuddy.sln --no-build</run>
+        <guidance>
+          Pass --no-build after a successful dotnet build to avoid redundant compilation.
+          All tests must pass — investigate and fix any failures before proceeding.
+        </guidance>
+      </command>
+
+      <command id="trunk_check" name="Polyglot Lint (Trunk)" lane="fast_readiness">
+        <description>Runs all enabled Trunk linters on changed files (Markdown, YAML, shell, Dockerfiles, GitHub Actions, Python, etc.).</description>
+        <run>trunk check</run>
+        <guidance>
+          This runs on changed files only, making it fast enough for the readiness gate.
+          For auto-fix, run `trunk check --fix` or `trunk fmt`, then re-verify.
+          Configuration lives in .trunk/trunk.yaml.
+          Note: This does NOT replace `dotnet format` — Trunk covers non-C# files; `dotnet format` covers C# code style.
+        </guidance>
+      </command>
+
+      <command id="trunk_security" name="Security Scan (Trunk)" lane="extended_validation">
+        <description>Runs heavier security/supply-chain linters (trufflehog, osv-scanner, checkov, bandit) across the full repo.</description>
+        <run>trunk check --all --filter=trufflehog,osv-scanner,checkov,bandit</run>
+        <guidance>
+          This is a slower scan — only run when explicitly required or in the extended validation CI lane.
+        </guidance>
+      </command>
+
+      <!-- Verification Command Reference -->
+      <!--
+        | Check                  | Command                                                      | Lane                | When to run              |
+        |========================|==============================================================|=====================|==========================|
+        | Build + Roslyn analysis| dotnet build ConvoContentBuddy.sln -warnaserror              | fast_readiness      | Every task               |
+        | Code style (C#)        | dotnet format ConvoContentBuddy.sln --verify-no-changes      | fast_readiness      | Every task               |
+        | Unit tests             | dotnet test ConvoContentBuddy.sln --no-build                 | fast_readiness      | Every task               |
+        | Polyglot lint (Trunk)  | trunk check                                                  | fast_readiness      | Every task               |
+        | Security scan (Trunk)  | trunk check --all --filter=trufflehog,osv-scanner,checkov,...| extended_validation | When explicitly required |
+        | Integration tests      | (add when Aspire test projects exist)                        | extended_validation | When explicitly required |
+      -->
+
+      <rule>Every time a new CI workflow is added to .github/workflows/, add its equivalent local command to this reference.</rule>
+    </verification_commands>
+
+    <post_commit_monitoring>
+      <description>After every commit and push, actively monitor CI/CD runs until the latest commit is green.</description>
+      <steps>
+        <step>Start monitoring immediately after push.</step>
+        <step>Monitor in a separate terminal session or background process so implementation work continues in parallel.</step>
+        <step>Poll workflow status on a short interval (for example, every 60–120 seconds) until completion.</step>
+        <step>If any workflow fails, stop new feature work and immediately triage the failure.</step>
+        <step>Fix the root cause, re-run local verification, push the fix, and continue this loop until workflows pass.</step>
+        <step>Do not mark work complete while the latest relevant CI/CD checks are failing.</step>
+      </steps>
+      <cli_patterns>
+        <run>gh run list --limit 5</run>
+        <run>gh run watch &lt;run-id&gt;</run>
+        <run>gh run view &lt;run-id&gt; --log-failed</run>
+      </cli_patterns>
+    </post_commit_monitoring>
+
+    <pipeline_speed_policy>
+      <description>Design workflows in two lanes so readiness feedback is fast.</description>
+      <lane name="fast_readiness" blocking="true">
+        Build, lint/format, unit tests. Keep this lane optimized for quick feedback and merge readiness.
+      </lane>
+      <lane name="extended_validation" blocking="false">
+        Long-running integration suites, deep security scans, dependency audits, performance or other non-readiness scans.
+      </lane>
+      <rule>When adding or editing workflows, protect the fast lane from unnecessary slow steps.</rule>
+    </pipeline_speed_policy>
+  </agent_readiness>
 </instructions>
-
----
-
-## Agent Readiness — Let Your Tools Do the Teaching
-
-> Reference: [Factory.ai Power User Guide — Agent Readiness](https://docs.factory.ai/cli/user-guides/become-a-power-user#agent-readiness-—-let-your-tools-do-the-teaching)
-
-Agent Readiness makes this project self-correcting. You must run the same verification commands that CI runs. If they pass locally, they pass in CI. If something is broken, you find out immediately and fix it before the task is complete.
-
-### Your Verification Protocol
-
-For any non-trivial code change, this protocol is mandatory and must be completed before marking any task complete.
-Treat this as a hard gate, not optional guidance.
-
-Non-trivial changes include (at minimum): logic changes, behavior changes, refactors, dependency updates, configuration changes that affect runtime/build/test behavior, and any multi-file edits.
-
-After making code changes that meet the non-trivial threshold, you must execute these steps:
-
-1. **Run the full verification suite** (all commands in the table below).
-2. **Fix every failure** — do not skip, suppress, or work around errors.
-3. **Re-run the failing check** after each fix to confirm it is resolved.
-4. **Repeat** until all checks pass cleanly.
-
-> **Critical:** Prioritize fast checks. Run the build and unit tests as your standard pre-completion gate. Only run slow integration or end-to-end tests when explicitly required by the task.
-
-### Verification Commands for This Repo
-
-This is a **.NET 10 / C# solution** (see [plan_docs/New Application Spec_ ConvoContentBuddy.md](plan_docs/New%20Application%20Spec_%20ConvoContentBuddy.md)). Run all applicable commands below before completing any implementation task.
-
-#### Build (.NET Solution)
-
-Compiles the entire solution and surfaces all compiler errors and Roslyn analyzer diagnostics.
-
-    dotnet build ConvoContentBuddy.sln -warnaserror
-
-The `-warnaserror` flag promotes all Roslyn analyzer warnings to errors. Fix all warnings — do not suppress them unless explicitly authorized.
-
-#### Static Analysis (dotnet format)
-
-Enforces C# code style and formatting rules across all projects.
-
-    dotnet format ConvoContentBuddy.sln --verify-no-changes
-
-If this reports violations, run `dotnet format ConvoContentBuddy.sln` (without `--verify-no-changes`) to auto-fix them, then re-verify.
-
-#### Unit Tests
-
-Runs all xUnit test projects in the solution.
-
-    dotnet test ConvoContentBuddy.sln --no-build
-
-Pass `--no-build` after a successful `dotnet build` to avoid redundant compilation. All tests must pass — investigate and fix any failures before proceeding.
-
-### Verification Command Reference
-
-| Check | Command | When to run |
-| --- | --- | --- |
-| Build + Roslyn analysis | `dotnet build ConvoContentBuddy.sln -warnaserror` | Every task |
-| Code style | `dotnet format ConvoContentBuddy.sln --verify-no-changes` | Every task |
-| Unit tests | `dotnet test ConvoContentBuddy.sln --no-build` | Every task |
-| Integration tests | *(add when Aspire test projects exist)* | When explicitly required |
-
-> **Rule:** Every time a new CI workflow is added to `.github/workflows/`, add its equivalent local command to this table.
-
-## Post-Commit CI/CD Monitoring Protocol
-
-After every commit and push, actively monitor CI/CD runs until the latest commit is green:
-
-1. Start monitoring immediately after push.
-2. Monitor in a separate terminal session or background process so implementation work continues in parallel.
-3. Poll workflow status on a short interval (for example, every 60-120 seconds) until completion.
-4. If any workflow fails, stop new feature work and immediately triage the failure.
-5. Fix the root cause, re-run local verification, push the fix, and continue this loop until workflows pass.
-6. Do not mark work complete while the latest relevant CI/CD checks are failing.
-
-Suggested GitHub CLI patterns:
-
-    gh run list --limit 5
-    gh run watch <run-id>
-    gh run view <run-id> --log-failed
-
-## CI/CD Pipeline Speed Policy
-
-Design workflows in two lanes so readiness feedback is fast:
-
-1. Fast readiness lane (blocking): build, lint/format, unit tests. Keep this lane optimized for quick feedback and merge readiness.
-2. Extended validation lane (can be slower): long-running integration suites, deep security scans, dependency audits, performance or other non-readiness scans.
-3. When adding or editing workflows, protect the fast lane from unnecessary slow steps.
