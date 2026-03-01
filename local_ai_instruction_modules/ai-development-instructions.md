@@ -1,43 +1,43 @@
-
+# Development Instructions
 
 This file provides guidance to chat clients and agents when working with code in this repository.
 
+## Shell Environment
+
+Default shell: **Linux bash** (WSL Ubuntu 24.04). PowerShell (pwsh) is also frequently used.
+
+- Default to bash for terminal commands
+- Use pwsh when running `.ps1` scripts or when PowerShell-specific features are needed
+- Detect the current shell before running commands: `echo $0` (bash) or `$PSVersionTable` (pwsh)
+
 ## Common Development Commands
 
-Your shell is MS PowerShell Core (pwsh.exe).
-
-- Do not use linux Bash or sh-based commands.
-- Formuldate all commands for pwsh.
-
-### Environment Verification
-
 ### GitHub Automation Scripts
+
+```bash
+# bash
+pwsh ./scripts/import-labels.ps1
+pwsh ./scripts/create-milestones.ps1
+```
+
 ```powershell
-# Import labels from ./.labels.json
+# pwsh
 ./scripts/import-labels.ps1
-
-# Create standard milestones
 ./scripts/create-milestones.ps1
-
 ```
 
 ## Architecture Overview
 
 ### AI-Powered Template System
-This repository is a **template for AI-assisted application development** that enforces strict automation protocols. The architecture is built around:
+
+This repository is a **template for AI-assisted application development**. The architecture is built around:
 
 1. **Remote Canonical Instructions**: Core AI instruction modules live in `nam20485/agent-instructions` repository
-2. **Local Instruction Modules**: Local files that reference and extend remote instructions
-3. **Automation Layer**: All repository operations are performed through:
-4. 1. MCO github server tools
-   2. gh CLI command (ask for authentication if needed)
-   3. terminal commands (pwsh shell)
-   4. create powershell .ps1 scripts and run them (or use existing)
-   5. GitHub API calls
-5. **Workflow Orchestration**: Dynamic workflows resolved from remote canonical sources
+2. **Local Instruction Modules**: Local files in `local_ai_instruction_modules/` that reference and extend remote instructions
+3. **Automation Layer**: Repository operations performed through MCP tools, `gh` CLI, terminal commands, scripts, and GitHub API
+4. **Workflow Orchestration**: Dynamic workflows resolved from remote canonical sources
 
-### Tool Hierarchy (Critical for Development)
-**Must follow this priority order for all GitHub operations:**
+### Tool Preference for GitHub Operations
 
 1. **MCP GitHub Tools** (`mcp_github_*` functions) - Use first
 2. **VS Code GitHub Integration** (`run_vscode_command`) - Fallback
@@ -70,54 +70,35 @@ This repository is a **template for AI-assisted application development** that e
 
 ### Key Architectural Patterns
 
-**Automation-First Design**: 90% minimum automation coverage required for all GitHub operations. Every manual step must be documented with tool limitation justification.
+**Remote-Local Instruction Split**:
 
-**Remote-Local Instruction Split**: 
 - Remote canonical repository (`nam20485/agent-instructions`) contains authoritative workflow definitions
-- Local `local_ai_instruction_modules/` contains workspace-specific references and toolset configuration
+- Local `local_ai_instruction_modules/` contains workspace-specific references and configuration
 - Never use local mirrors for workflow derivation
-- When beginning a workflow, read all workflow instructions
-  - Local
-  - Remote
-    - workflow assignments
-    - dynamic workflows
-    - specific dynamics workflow
-    - specific workflow assignments mentioned in the main dynamic workflow
-
-**PowerShell-Centric Scripting**: Default shell is PowerShell (pwsh), not bash. All automation scripts use PowerShell with proper error handling and validation.
+- When beginning a workflow, read all relevant instructions (local and remote) before planning or acting
 
 ### Core System Components
 
-**Workflow Assignment System**: 
-- Dynamic workflow assignments resolved from remote canonical sources `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
-- Assignments resolved from `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
-- Available workflows: everything in:
-  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
-  - `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows`
-- Always use RAW URLs when fetching remote workflow files
-- Always read all of your `ai_instruction_modules` before planning or acting
+**Workflow Assignment System**:
 
-**Dynamic Workflow System**:
-- Dynamic workflows resolved from remote canonical sources
-- Resolve all dynamic workflow assignment and the workflow assignments contained inside before planning or acting.
+- Assignments resolved from `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/`
+- Dynamic workflows in `nam20485/agent-instructions/ai_instruction_modules/ai-workflow-assignments/dynamic-workflows/`
+- Always use RAW URLs when fetching remote workflow files
+- Read all `ai_instruction_modules` before planning or acting
 
 **Tool Configuration**:
+
 - Use dynamic tool discovery to identify available capabilities
-- Web-fetch tool disabled - use PowerShell `Invoke-WebRequest` instead
-- MCP filesystem, GitHub, Sequential Thinking, Memory, and Gemini tools are primary automation interfaces
-- **REQUIRED MCP SERVERS**: filesystem, github, sequential-thinking, memory, gemini-cli, desktop-commander
+- Tool availability varies by environment — discover at runtime rather than relying on static lists
 
-## Development Environment Requirements
+## Development Environment
 
-- **. NET SDK**: 10.0.100 (pinned in `global.json`)
-- **PowerShell**: 7+ required for cross-platform script execution
+- **.NET SDK**: 10.0.100 (pinned in `global.json`)
+- **Shell**: bash (WSL Ubuntu 24.04) primary, pwsh also used
+- **PowerShell**: 7+ for cross-platform script execution
 
 ## Critical Development Rules
 
-1. **Shell Detection**: Always check if you're in PowerShell vs bash before running commands
-2. **Automation Coverage**: Achieve 90%+ automation for all GitHub operations or document tool limitations
-3. **Remote Authority**: Only use remote canonical repository files for workflow definitions
-4. **Tool Priority**: Use MCP GitHub tools first, terminal `gh` commands only as documented last resort, GH REST and graphql API can also be used.
-5. **Sequential Thinking**: MUST use Sequential Thinking MCP tool for ALL multi-step tasks and complex problem solving
-6. **Memory Management**: MUST use Memory MCP tool to maintain context and state across workflow stages
-<!-- 7. **Context Conservation**: USE Gemini MCP tool (1M token context) when reading large codebases or extensive documentation to preserve Claude's context -->
+1. **Shell Detection**: Check current shell (bash vs pwsh) before running commands
+2. **Remote Authority**: Only use remote canonical repository files for workflow definitions
+3. **Tool Priority**: Use MCP GitHub tools first, `gh` CLI as fallback, GitHub API when needed

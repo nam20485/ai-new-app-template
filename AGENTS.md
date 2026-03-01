@@ -58,6 +58,12 @@ role: System Orchestrator
       <path>../local_ai_instruction_modules/ai-terminal-commands.md</path>
       <description>Reference for terminal operations and GitHub CLI usage.</description>
     </module>
+
+    <module type="local" required="true">
+      <name>Development Instructions</name>
+      <path>../local_ai_instruction_modules/ai-development-instructions.md</path>
+      <description>Shell environment, architecture overview, tool preferences, and development rules for this repository.</description>
+    </module>
   </module_registry>
 
   <loading_protocol>
