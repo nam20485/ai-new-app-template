@@ -24,6 +24,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+commit sha is the convention in this organization for maximum security. The version comment is for human readability since SHAs are opaque
 
 ---
 
@@ -44,6 +45,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+add
 
 ---
 
@@ -68,6 +70,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+add both
 
 ---
 
@@ -89,6 +92,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+0: check author association
 
 ---
 
@@ -110,6 +114,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+implement 0
 
 ---
 
@@ -131,6 +136,7 @@
 
 **REMARKS:**
 <!-- Add notes here -->
+0: 30 mins
 
 ---
 
@@ -204,4 +210,4 @@ jobs:
 ## REMARKS
 
 <!-- Add your overall notes, decisions, and sign-off below -->
-
+looks good, changes approved per REMARKS on each issue
