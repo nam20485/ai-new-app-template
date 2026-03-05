@@ -37,31 +37,31 @@ role: System Orchestrator
 
     <module type="local" required="true">
       <name>Local AI Instructions</name>
-      <path>../local_ai_instruction_modules</path>
+      <path>local_ai_instruction_modules</path>
       <description>Context-specific instructions located in the local workspace.</description>
     </module>
 
     <module type="dynamic workflow" required="true">
       <name>Dynamic Workflow Orchestration</name>
-      <path>../local_ai_instruction_modules/ai-dynamic-workflows.md</path>
+      <path>local_ai_instruction_modules/ai-dynamic-workflows.md</path>
       <description>Protocol for resolving workflows from the remote canonical repository.</description>
     </module>
 
     <module type="workflow assignment" required="true">
       <name>Workflow Assignments</name>
-      <path>../local_ai_instruction_modules/ai-workflow-assignments.md</path>
+      <path>local_ai_instruction_modules/ai-workflow-assignments.md</path>
       <description>Index of active workflow assignments by shortId.</description>
     </module>
 
     <module type="optional">
       <name>Terminal Commands</name>
-      <path>../local_ai_instruction_modules/ai-terminal-commands.md</path>
+      <path>local_ai_instruction_modules/ai-terminal-commands.md</path>
       <description>Reference for terminal operations and GitHub CLI usage.</description>
     </module>
 
     <module type="local" required="true">
       <name>Development Instructions</name>
-      <path>../local_ai_instruction_modules/ai-development-instructions.md</path>
+      <path>local_ai_instruction_modules/ai-development-instructions.md</path>
       <description>Shell environment, architecture overview, tool preferences, and development rules for this repository.</description>
     </module>
   </module_registry>
